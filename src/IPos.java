@@ -91,4 +91,12 @@ public interface IPos {
      * @param cart the target cart
      */
     public void checkout(IShoppingCart cart);
+    
+    /**
+     * This function is supposed to be called after all users checked out
+     * Our imaginary restaurants will receive the aggregated orders, "cook" them, and 
+     * deliver them to the users (delivery will be represented by messages) 
+     * 
+     */
+    public void cookAndDeliver();
 }
