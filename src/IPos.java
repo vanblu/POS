@@ -20,6 +20,7 @@ public interface IPos {
     
     
     /**
+<<<<<<< HEAD
      * Obtain a Collection of all restaurants stored in the system
      * @return the Collection containing all restaurants
      */
@@ -51,6 +52,48 @@ public interface IPos {
     
     
     /* The lines below contain unused interface methods (leftovers from initial design) */
+=======
+     * Put already-loaded Restaurant data into a QuadTree, which arranges Restaurants by their longitudes and latitude.
+     * 
+     */
+    public QuadTree storeRestaurantsInTree();
+    
+    
+    /**
+     * Search for Restaurants using three criteria: distance from user, 
+     * rating, and type of cuisine. 
+     *  
+     *  @param minDist minimum distance of the restaurant from the user 
+     *  @param maxDist maximum distance of the restaurant from the user 
+     *  @param lowRating lower bound of restaurant rating (min = 0)
+     *  @param highRating upper bound of restaurant rating (max = 5)
+     *  @param cuisineType type of cuisine that the restaurant serves
+     *  
+     *  @return a list containing all the restaurants fulfilling the criteria 
+     */
+    public List<IRestaurant> searchForRestaruants(double minDist, double maxDist,
+            double lowRatng, double highRating, String cuisineType); 
+    
+    /** Given a list of restaurants and a sorting criteria, sort the list of restaurants
+     * 
+     * @param restaurants list of restaurants to be sorted 
+     * @param sortCriteria criteria used for sorting (1 = rating, 2 = distance, 3 = name)
+     * @param ascending the order of sorting
+     */
+    public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 
+            int sortCriteria, boolean ascending);
+    
+    
+    /* The lines below contain unused interface methods (leftovers from initial design) */
+    
+    
+    
+    /**
+     * Obtain a Collection of all restaurants stored in the system
+     * @return the Collection containing all restaurants
+     */
+    //public Collection<IRestaurant> getRestaurants();
+>>>>>>> refs/remotes/origin/master
     
     /**
      * Initialize our system with a specific number of shopping carts 
