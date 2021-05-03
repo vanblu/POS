@@ -20,10 +20,11 @@ public interface IPos {
     
     
     /**
-     * Obtain a Collection of all restaurants stored in the system
-     * @return the Collection containing all restaurants
+     * Put already-loaded Restaurant data into a QuadTree, which arranges Restaurants by their longitudes and latitude.
+     * 
      */
-    public Collection<IRestaurant> getRestaurants();
+    public QuadTree storeRestaurantsInTree();
+    
     
     /**
      * Search for Restaurants using three criteria: distance from user, 
@@ -51,6 +52,14 @@ public interface IPos {
     
     
     /* The lines below contain unused interface methods (leftovers from initial design) */
+    
+    
+    
+    /**
+     * Obtain a Collection of all restaurants stored in the system
+     * @return the Collection containing all restaurants
+     */
+    //public Collection<IRestaurant> getRestaurants();
     
     /**
      * Initialize our system with a specific number of shopping carts 
