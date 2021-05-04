@@ -71,7 +71,6 @@ public class JsonParser {
             e.printStackTrace();
         }
 
-        System.out.println(l);
         return l;
     }
 
