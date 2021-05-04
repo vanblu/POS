@@ -16,7 +16,7 @@ public interface IPos {
      * @param longitude: longitude of the user 
      * @return number of restaurants loaded into the system 
      */
-    public int loadRestaurantInfo(String filepath, double latitude, double longitude);
+    public int loadRestaurantInfo(String filepath, String zip);
     
     
     /**

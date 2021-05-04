@@ -1,16 +1,20 @@
 import java.util.Collection;
 import java.util.List;
 
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
+
 public class Pos implements IPos {
     
-    Collection<IRestaurant> restaurantSet; // load restaurant to this collection
+    List<Restaurant> restaurantSet; // load restaurant to this collection
     QuadTree head; // head of the QuadTree storing restaurants 
     
 
     @Override
-    public int loadRestaurantInfo(String filepath, double latitude, double longitude) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int loadRestaurantInfo(String filepath, String zip) {
+        JsonParser parse = new JsonParser();
+        List<Restaurant> output = parse.read(filepath, zip);
+        restaurantSet = output; 
+        return restaurantSet.size();
     }
 
     @Override
@@ -28,6 +32,12 @@ public class Pos implements IPos {
 
     @Override
     public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, int sortCriteria, boolean ascending) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Collection<IRestaurant> getRestaurants() {
         // TODO Auto-generated method stub
         return null;
     }
