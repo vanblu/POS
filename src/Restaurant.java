@@ -38,7 +38,7 @@ public class Restaurant implements IRestaurant {
         this.latitude = latitude;
     }
 
-    public String getLongtitude() {
+    public String getLongitude() {
         return longtitude;
     }
 
