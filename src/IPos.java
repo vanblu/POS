@@ -9,11 +9,10 @@ public interface IPos {
     
     /**
      * Load Restaurant Information from Yelp dataset, including only those restaurants at a particular 
-     * distance away from the specified latitude and longitude
+     * zipcode
      * 
      * @param filePath the path of the data
-     * @param latitude: latitude of the user 
-     * @param longitude: longitude of the user 
+     * @param zip the specific zipcode requested by the user 
      * @return number of restaurants loaded into the system 
      */
     public int loadRestaurantInfo(String filepath, String zip);
@@ -24,6 +23,13 @@ public interface IPos {
      * @return the Collection containing all restaurants
      */
     public Collection<IRestaurant> getRestaurants();
+    
+    /**
+     * Having loaded restaurant info from json, store them in a quadtree by coordinate 
+     * 
+     * @return a QuadTree storing all restaurant info
+     */
+    public QuadTree storeRestaurantsInTree();
     
     /**
      * Search for Restaurants using three criteria: distance from user, 

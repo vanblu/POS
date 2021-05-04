@@ -3,12 +3,11 @@
 /**
  * A 2D Point class
  *
- * @author ericfouh
- * @version Jan 17, 2018
+ * @author ericfouh, modified by Henry Hung
  */
 public class Point {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     // ----------------------------------------------------------
     /**
@@ -17,7 +16,7 @@ public class Point {
      * @param x
      * @param y
      */
-    Point(int x, int y) {
+    Point(double x, double y) {
         this.setX(x);
         this.setY(y);
     }
@@ -26,7 +25,7 @@ public class Point {
     /**
      * @return the x
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -34,7 +33,7 @@ public class Point {
     /**
      * @param x the x to set
      */
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -42,7 +41,7 @@ public class Point {
     /**
      * @return the y
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -50,7 +49,7 @@ public class Point {
     /**
      * @param y the y to set
      */
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -68,6 +67,12 @@ public class Point {
         }
         Point that = (Point) o;
         return this.x == that.getX() && this.y == that.getY();
+    }
+    
+    // return distance between two points
+    public double distanceTo(Point other) {
+        return Math.sqrt(Math.pow((this.getX() - other.getX()), 2.0) + 
+                Math.pow((this.getY() - other.getY()), 2.0));
     }
 
 }
