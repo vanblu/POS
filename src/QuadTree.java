@@ -102,35 +102,33 @@ public class QuadTree implements IQuadTree {
     }
     
     // insert a Restaurant in the QuadTree based on its location info
-    public void insert(IQuadTree head, IRestaurant rest) {
+    public void insert(IRestaurant rest) {
         double latitude = Double.parseDouble(rest.getLatitude());
         double longitude = Double.parseDouble(rest.getLongitude());
         
         Point restLocation = Coordinates.latLongToPoint(latitude, longitude);
-
-        QuadTree headNode = (QuadTree) head;
         
         // if Restaurant location is outside of the quadTree, just return
-        if (headNode.getBotRight().getY() < restLocation.getY() || 
-                headNode.getBotRight().getX() < restLocation.getX() || 
-                headNode.getTopLeft().getY() > restLocation.getY() || 
-                headNode.getTopLeft().getX() > restLocation.getX()) {
+        if (this.getBotRight().getY() < restLocation.getY() || 
+                this.getBotRight().getX() < restLocation.getX() || 
+                this.getTopLeft().getY() > restLocation.getY() || 
+                this.getTopLeft().getX() > restLocation.getX()) {
             return; 
         }
         
         // if Block is already smallest, just add it 
-        if (headNode.depth() == MAX_DEPTH) { 
-            headNode.restaurants.add(rest);
+        if (this.depth() == MAX_DEPTH) { 
+            this.restaurants.add(rest);
         // if max number of restaurants has already been added to Node
-        } else if (headNode.restaurants.size() == MAX_REST_IN_NODE) {
-            if (headNode.isLeaf()) {
-                headNode.split();
+        } else if (this.restaurants.size() == MAX_REST_IN_NODE) {
+            if (this.isLeaf()) {
+                this.split();
             }
-            QuadTree nextNode = headNode.chooseLeaf(restLocation);
-            insert(nextNode, rest);
+            QuadTree nextNode = this.chooseLeaf(restLocation);
+            nextNode.insert(rest);
         // if max number of restaurants have not been added yet 
         } else {
-            headNode.restaurants.add(rest);
+            this.restaurants.add(rest);
         }
         
     }
@@ -237,6 +235,10 @@ public class QuadTree implements IQuadTree {
         this.sw = tree;
     }
     
+    // for testing 
+    public Collection<IRestaurant> getRestaurantsAtNode() {
+        return this.restaurants;
+    }
     
     
 }

@@ -23,7 +23,7 @@ public interface IQuadTree {
      * @param head the QuadTree to insert into 
      * @param rest the IRestaurant object to be stored in QuadTree 
      */
-    public void insert(IQuadTree head, IRestaurant rest);
+    public void insert(IRestaurant rest);
     
     public List<IRestaurant> rangeSearch(double minDist, double maxDist,
             double lowRatng, double highRating, String cuisineType);
