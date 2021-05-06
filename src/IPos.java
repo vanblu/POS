@@ -15,7 +15,7 @@ public interface IPos {
      * @p4aram zip the specific zipcode requested by the user 
      * @return number of restaurants loaded into the system 
      */
-    public int loadRestaurantInfo(String filepath, String zip);
+    public int loadRestauranInfo(String filepath, String zip); 
     
     
     /**

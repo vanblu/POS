@@ -41,10 +41,6 @@ public class Pos implements IPos {
         return null;
     }
 
-    @Override
-    public int loadRestaurantInfo(String filepath, String zip) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+
 
 }
