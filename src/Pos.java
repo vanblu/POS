@@ -10,7 +10,7 @@ public class Pos implements IPos {
     
 
     @Override
-    public int loadRestaurantInfo(String filepath, String zip) {
+    public int loadRestauranInfo(String filepath, String zip) {
         JsonParser parse = new JsonParser();
         List<Restaurant> output = parse.read(filepath, zip);
         restaurantSet = output; 
