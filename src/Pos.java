@@ -46,6 +46,9 @@ public class Pos implements IPos {
         default:
             comp = new nameComparator();
         }
+        if (!ascending) {
+            comp = Collections.reverseOrder(comp);
+        }
         Collections.sort(restaurants, comp);
         return restaurants;
     }
