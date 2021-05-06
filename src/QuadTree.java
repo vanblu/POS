@@ -1,6 +1,7 @@
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class QuadTree implements IQuadTree {
@@ -15,6 +16,7 @@ public class QuadTree implements IQuadTree {
     // maximum number of restaurants stored in a node, before we go to a deeper one 
     final static int MAX_REST_IN_NODE = 5; 
     
+    private Point center; // center != null only for top level block
     private Point botRight;
     private Point topLeft; 
     private int depth;
@@ -23,7 +25,7 @@ public class QuadTree implements IQuadTree {
     private QuadTree nw;
     private QuadTree se;
     private QuadTree sw;
-    private Collection<IRestaurant> restaurants;
+    private TreeSet<IRestaurant> restaurants;
 
         
     /**
@@ -34,10 +36,11 @@ public class QuadTree implements IQuadTree {
      * 
      */
     public QuadTree(Point userCoordinates) {
+        this.center = userCoordinates;
         this.botRight = new Point(userCoordinates.getX() + MAX_HALFLENGTH, 
-                userCoordinates.getY() + MAX_HALFLENGTH);
-        this.topLeft = new Point(userCoordinates.getX() - MAX_HALFLENGTH, 
                 userCoordinates.getY() - MAX_HALFLENGTH);
+        this.topLeft = new Point(userCoordinates.getX() - MAX_HALFLENGTH, 
+                userCoordinates.getY() + MAX_HALFLENGTH);
         this.depth = 0; 
         this.restaurants = new TreeSet<IRestaurant>();
     }
@@ -70,16 +73,20 @@ public class QuadTree implements IQuadTree {
         this.restaurants = new TreeSet<IRestaurant>();
     }
     
-    // helper method, split a block into four 
+    // helper method, split a block into four sub-blocks
     private void split() {
         double midX = (this.getTopLeft().getX() + this.getBotRight().getX()) / 2.0;
         double midY = (this.getTopLeft().getY() + this.getBotRight().getY()) / 2.0;
 
+        // NW 
         new QuadTree(this.getTopLeft(), new Point(midX, midY), this);
+        // NE
         new QuadTree(new Point(midX, this.getTopLeft().getY()), 
                 new Point(this.getBotRight().getX(), midY), this);
+        // SW
         new QuadTree(new Point(this.getTopLeft().getX(), midY), 
                 new Point(midX, this.getBotRight().getY()), this);
+        // SE
         new QuadTree(new Point(midX, midY), this.getBotRight(), this);
         
         return;
@@ -109,13 +116,12 @@ public class QuadTree implements IQuadTree {
         Point restLocation = Coordinates.latLongToPoint(latitude, longitude);
         
         // if Restaurant location is outside of the quadTree, just return
-        if (this.getBotRight().getY() < restLocation.getY() || 
+        if (this.getBotRight().getY() > restLocation.getY() || 
                 this.getBotRight().getX() < restLocation.getX() || 
-                this.getTopLeft().getY() > restLocation.getY() || 
+                this.getTopLeft().getY() < restLocation.getY() || 
                 this.getTopLeft().getX() > restLocation.getX()) {
             return; 
         }
-        
         // if Block is already smallest, just add it 
         if (this.depth() == MAX_DEPTH) { 
             this.restaurants.add(rest);
@@ -124,18 +130,64 @@ public class QuadTree implements IQuadTree {
             if (this.isLeaf()) {
                 this.split();
             }
-            QuadTree nextNode = this.chooseLeaf(restLocation);
+            QuadTree nextNode = this.chooseLeaf(restLocation);     
             nextNode.insert(rest);
         // if max number of restaurants have not been added yet 
         } else {
             this.restaurants.add(rest);
         }
+    }
+    
+    // helper method: returns true if the block contains Points that are within 
+    // the specified range of distance from center 
+    private boolean overlaps(Point center, double minDist, double maxDist) {
+        Point botLeft = new Point(this.getTopLeft().getX(), this.getBotRight().getY());
+        Point topRight = new Point(this.getBotRight().getX(), this.getTopLeft().getY());
+        return (botLeft.distanceTo(center) >= minDist && botLeft.distanceTo(center) <= maxDist ||
+                topRight.distanceTo(center) >= minDist && topRight.distanceTo(center) <= maxDist ||
+                botRight.distanceTo(center) >= minDist && botRight.distanceTo(center) <= maxDist ||
+                topLeft.distanceTo(center) >= minDist && topLeft.distanceTo(center) <= maxDist);
+                
+    }
+    
+    // recursive helper method for range search
+    private void searchHelper(List<IRestaurant> results, Point center, double minDist, 
+            double maxDist, double lowRating, double highRating, String cuisineType) {
+        // base case: does not overlap with search region 
+        if (!this.overlaps(center, minDist, maxDist)) {
+            return;
+        }
+        IRestaurant lowerBound = new Restaurant(lowRating);
+        IRestaurant upperBound = new Restaurant(highRating);
+        // use treeset to efficiently find restaurants within the specified ratings range 
+        SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
+        for (IRestaurant r : restAtNode) {
+            if (r.getLocation().distanceTo(center) >= minDist &&
+                    r.getLocation().distanceTo(center) <= maxDist &&
+                    r.getCusineType().equals(cuisineType)) {
+                results.add(r);
+            }
+        }
         
+        // recursively search through children
+        for (IQuadTree q : this.children()) {
+            QuadTree qt = (QuadTree) q;
+            qt.searchHelper(results, center, minDist, maxDist, 
+                    lowRating, highRating, cuisineType);
+        }
+        
+        return;
     }
     
     public List<IRestaurant> rangeSearch(double minDist, double maxDist,
-            double lowRatng, double highRating, String cuisineType) {
-        return null;
+            double lowRating, double highRating, String cuisineType) {
+        if (this.center == null) {
+            throw new IllegalArgumentException("rangeSearch only applies to top level block");
+        }
+        List<IRestaurant> results = new LinkedList<IRestaurant>();
+        searchHelper(results, this.center, minDist, maxDist,
+                lowRating, highRating, cuisineType);
+        return results;
     }
 
     @Override
@@ -236,7 +288,7 @@ public class QuadTree implements IQuadTree {
     }
     
     // for testing 
-    public Collection<IRestaurant> getRestaurantsAtNode() {
+    public TreeSet<IRestaurant> getRestaurantsAtNode() {
         return this.restaurants;
     }
     

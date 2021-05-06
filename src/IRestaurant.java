@@ -30,4 +30,6 @@ public interface IRestaurant extends Comparable<IRestaurant> {
     public void setCategory(String category);
     
     public int compareTo(IRestaurant that);
+    
+    public Point getLocation();
 }

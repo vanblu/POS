@@ -13,6 +13,10 @@ public class Restaurant implements IRestaurant {
     public Restaurant() {
 
     }
+    
+    public Restaurant(double stars) {
+        this.stars = stars;
+    }
 
     public String getName() {
         return name;
@@ -68,6 +72,12 @@ public class Restaurant implements IRestaurant {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+    
+    public Point getLocation() {
+        return Coordinates.latLongToPoint(
+                Double.parseDouble(this.getLatitude()), 
+                Double.parseDouble(this.getLongitude()));
     }
     
 

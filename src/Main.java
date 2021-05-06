@@ -9,6 +9,7 @@ public static void main(String [] args) {
     
     Scanner scanner = new Scanner(System.in);
     String[] locationInput = scanner.nextLine().split(", ");
+    
     String zipcode = locationInput[0];
     double latitude = Double.parseDouble(locationInput[1]);
     double longitude = Double.parseDouble(locationInput[2]);
