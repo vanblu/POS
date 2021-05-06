@@ -13,6 +13,10 @@ public class Restaurant implements IRestaurant {
     public Restaurant() {
 
     }
+    
+    public Restaurant(double stars) {
+        this.stars = stars;
+    }
 
     public String getName() {
         return name;
@@ -70,6 +74,10 @@ public class Restaurant implements IRestaurant {
         this.category = category;
     }
     
+    public Point getLocation() {
+        return Coordinates.latLongToPoint(Double.parseDouble(this.getLatitude()), 
+                Double.parseDouble(this.getLongitude()));
+    }
 
     @Override
     // natural order - order by Stars
@@ -80,6 +88,10 @@ public class Restaurant implements IRestaurant {
         if (this.getStars() == 0 || that.getStars() == 0) {
             return -1; // randomly order if no stars given 
         }
+        if (Math.abs(this.getStars() - that.getStars()) < 0.2) {
+            return -1; // randomly order if same stars
+        }
+
         return (int) (this.getStars() * 100 - that.getStars() * 100);
     }
 }

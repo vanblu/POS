@@ -25,8 +25,8 @@ public interface IQuadTree {
      */
     public void insert(IRestaurant rest);
     
-    public List<IRestaurant> rangeSearch(double minDist, double maxDist,
-            double lowRatng, double highRating, String cuisineType);
+    public List<IRestaurant> rangeSearch(double maxDist,
+            double lowRating, double highRating, String cuisineType);
     
     
 }

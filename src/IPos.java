@@ -43,7 +43,7 @@ public interface IPos {
      *  
      *  @return a list containing all the restaurants fulfilling the criteria 
      */
-    public List<IRestaurant> searchForRestaruants(double minDist, double maxDist,
+    public List<IRestaurant> searchForRestaruants(double maxDist,
             double lowRatng, double highRating, String cuisineType); 
     
     /** Given a list of restaurants and a sorting criteria, sort the list of restaurants
@@ -54,6 +54,16 @@ public interface IPos {
      */
     public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 
             int sortCriteria, boolean ascending);
+    
+    /**
+     * @return current user's coordinates 
+     */
+    public Point getUserCoordinates();
+    
+    /**
+     * Set current user's coordinates (for QuadTree)
+     */
+    public void setUserCoordinates(Point userCoordinates);
     
     
     /* The lines below contain unused interface methods (leftovers from initial design) */
