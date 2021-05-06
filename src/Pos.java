@@ -1,4 +1,6 @@
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,8 +35,19 @@ public class Pos implements IPos {
 
     public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 
             int sortCriteria, boolean ascending) {
-        // TODO Auto-generated method stub
-        return null;
+        Comparator<IRestaurant> comp = null;
+        switch (sortCriteria) {
+        case 1:
+            comp = new starComparator();
+            break;
+        case 2:
+            comp = new distanceComparator(this.userCoordinates);
+            break;
+        default:
+            comp = new nameComparator();
+        }
+        Collections.sort(restaurants, comp);
+        return restaurants;
     }
 
     public Collection<IRestaurant> getRestaurants() {
