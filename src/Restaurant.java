@@ -75,8 +75,7 @@ public class Restaurant implements IRestaurant {
     }
     
     public Point getLocation() {
-        return Coordinates.latLongToPoint(
-                Double.parseDouble(this.getLatitude()), 
+        return Coordinates.latLongToPoint(Double.parseDouble(this.getLatitude()), 
                 Double.parseDouble(this.getLongitude()));
     }
     
@@ -90,6 +89,10 @@ public class Restaurant implements IRestaurant {
         if (this.getStars() == 0 || that.getStars() == 0) {
             return -1; // randomly order if no stars given 
         }
+        if (Math.abs(this.getStars() - that.getStars()) < 0.2) {
+            return -1; // randomly order if same stars
+        }
+
         return (int) (this.getStars() * 100 - that.getStars() * 100);
     }
 }

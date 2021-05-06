@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 public class QuadTree implements IQuadTree {
 
-    
     // maximum depth of quadtree 
     final static int MAX_DEPTH = 16;
     // Half length of the biggest QuadTree block - 8km
@@ -122,6 +121,7 @@ public class QuadTree implements IQuadTree {
                 this.getTopLeft().getX() > restLocation.getX()) {
             return; 
         }
+        
         // if Block is already smallest, just add it 
         if (this.depth() == MAX_DEPTH) { 
             this.restaurants.add(rest);
@@ -140,21 +140,24 @@ public class QuadTree implements IQuadTree {
     
     // helper method: returns true if the block contains Points that are within 
     // the specified range of distance from center 
-    private boolean overlaps(Point center, double minDist, double maxDist) {
-        Point botLeft = new Point(this.getTopLeft().getX(), this.getBotRight().getY());
-        Point topRight = new Point(this.getBotRight().getX(), this.getTopLeft().getY());
-        return (botLeft.distanceTo(center) >= minDist && botLeft.distanceTo(center) <= maxDist ||
-                topRight.distanceTo(center) >= minDist && topRight.distanceTo(center) <= maxDist ||
-                botRight.distanceTo(center) >= minDist && botRight.distanceTo(center) <= maxDist ||
-                topLeft.distanceTo(center) >= minDist && topLeft.distanceTo(center) <= maxDist);
-                
+    private boolean overlaps(Point center, double maxDist) {
+        double maxX = center.getX() + maxDist;
+        double minX = center.getX() - maxDist;
+        double maxY = center.getY() + maxDist;
+        double minY = center.getY() - maxDist;
+        
+        return (this.getTopLeft().getX() < maxX &&
+                this.getBotRight().getX() > minX && 
+                this.getTopLeft().getY() > minY &&
+                this.getBotRight().getY() < maxY);
     }
     
     // recursive helper method for range search
-    private void searchHelper(List<IRestaurant> results, Point center, double minDist, 
+    private void searchHelper(List<IRestaurant> results, Point center,  
             double maxDist, double lowRating, double highRating, String cuisineType) {
+
         // base case: does not overlap with search region 
-        if (!this.overlaps(center, minDist, maxDist)) {
+        if (!this.overlaps(center, maxDist)) {
             return;
         }
         IRestaurant lowerBound = new Restaurant(lowRating);
@@ -162,8 +165,7 @@ public class QuadTree implements IQuadTree {
         // use treeset to efficiently find restaurants within the specified ratings range 
         SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
         for (IRestaurant r : restAtNode) {
-            if (r.getLocation().distanceTo(center) >= minDist &&
-                    r.getLocation().distanceTo(center) <= maxDist &&
+            if (r.getLocation().distanceTo(center) <= maxDist &&
                     r.getCusineType().equals(cuisineType)) {
                 results.add(r);
             }
@@ -172,20 +174,20 @@ public class QuadTree implements IQuadTree {
         // recursively search through children
         for (IQuadTree q : this.children()) {
             QuadTree qt = (QuadTree) q;
-            qt.searchHelper(results, center, minDist, maxDist, 
+            qt.searchHelper(results, center, maxDist, 
                     lowRating, highRating, cuisineType);
         }
         
         return;
     }
     
-    public List<IRestaurant> rangeSearch(double minDist, double maxDist,
+    public List<IRestaurant> rangeSearch(double maxDist,
             double lowRating, double highRating, String cuisineType) {
         if (this.center == null) {
             throw new IllegalArgumentException("rangeSearch only applies to top level block");
         }
         List<IRestaurant> results = new LinkedList<IRestaurant>();
-        searchHelper(results, this.center, minDist, maxDist,
+        searchHelper(results, this.center, maxDist,
                 lowRating, highRating, cuisineType);
         return results;
     }
