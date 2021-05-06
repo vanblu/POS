@@ -1,7 +1,6 @@
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
 
 public class Pos implements IPos {
     
@@ -40,6 +39,12 @@ public class Pos implements IPos {
     public Collection<IRestaurant> getRestaurants() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public int loadRestaurantInfo(String filepath, String zip) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 
 }

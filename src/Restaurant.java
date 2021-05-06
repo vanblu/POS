@@ -5,12 +5,12 @@ public class Restaurant implements IRestaurant {
     String latitude;
     String longtitude;
     String cusineType;
-    int stars;
+    double stars;
     String category;
     
     
 
-    Restaurant() {
+    public Restaurant() {
 
     }
 
@@ -38,7 +38,7 @@ public class Restaurant implements IRestaurant {
         this.latitude = latitude;
     }
 
-    public String getLongtitude() {
+    public String getLongitude() {
         return longtitude;
     }
 
@@ -54,11 +54,11 @@ public class Restaurant implements IRestaurant {
         this.cusineType = cusineType;
     }
 
-    public int getStars() {
-        return stars;
+    public double getStars() {
+        return this.stars;
     }
 
-    public void setStars(int stars) {
+    public void setStars(double stars) {
         this.stars = stars;
     }
 
@@ -68,5 +68,18 @@ public class Restaurant implements IRestaurant {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+    
+
+    @Override
+    // natural order - order by Stars
+    public int compareTo(IRestaurant that) {
+        if (this.equals(that)) {
+            return 0;
+        }
+        if (this.getStars() == 0 || that.getStars() == 0) {
+            return -1; // randomly order if no stars given 
+        }
+        return (int) (this.getStars() * 100 - that.getStars() * 100);
     }
 }
