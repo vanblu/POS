@@ -71,8 +71,9 @@ public class User {
             longitude = Double.parseDouble(locationInput[2]);
 
         }
-        JsonParser read = new JsonParser();
-        read.read("yelp_academic_dataset_business.json", zipcode);
+        Pos pos = new Pos();
+        pos.loadRestauranInfo("yelp_academic_dataset_business.json", zipcode);
+        
         
         System.out.println(" ");
         // to-do: validate
