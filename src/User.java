@@ -28,6 +28,14 @@ public class User {
         return false;
     }
 
+    public boolean checkCity(String city) {
+        
+        ArrayList<String> validCity = validCity();
+        if(validCity.contains(city)) {
+            return true; 
+        }
+        return false;
+    }
     
     /**
      * 
@@ -57,18 +65,19 @@ public class User {
 
         Scanner scanner = new Scanner(System.in);
         String[] locationInput = scanner.nextLine().split(", ");
-        String zipcode = locationInput[0];
+        String city = locationInput[0];
         double latitude = Double.parseDouble(locationInput[1]);
         double longitude = Double.parseDouble(locationInput[2]);
+        
 
-        while (!checkZip(zipcode) || !checkLatAndLong(latitude, longitude)) {
+        while ( !checkLatAndLong(latitude, longitude) || !checkCity(city)) {
 
             System.out.println(
                     "Please enter 5-digit zipcode, latitude, and longitude you want to order from (e.g 11111, 40.7, -74.0)");
 
             scanner = new Scanner(System.in);
             locationInput = scanner.nextLine().split(", ");
-            zipcode = locationInput[0];
+            city = locationInput[0];
             latitude = Double.parseDouble(locationInput[1]);
             longitude = Double.parseDouble(locationInput[2]);
 
@@ -179,4 +188,30 @@ public class User {
     }
             
     
+    public ArrayList<String> validCity() {
+        ArrayList<String> validCity = new ArrayList<>();
+         try {
+         BufferedReader reader = new BufferedReader(new FileReader("city.txt"));
+         String city;
+         try {
+             city = reader.readLine();
+             while(city != null || city.equals("")) {
+                 
+                 validCity.add(city);
+                 city = reader.readLine();
+                 
+             }
+         } catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+        
+         
+     } catch (FileNotFoundException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+     }
+         
+         return validCity; 
+     }
 }
