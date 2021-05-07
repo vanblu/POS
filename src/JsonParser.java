@@ -1,8 +1,10 @@
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -65,11 +67,12 @@ public class JsonParser {
         Object obj;
         try {
             File fileObj = new File(filename);
-            Scanner reader = new Scanner(fileObj);
+            BufferedReader reader = new BufferedReader(new FileReader(fileObj));
 
-            while (reader.hasNextLine()) {
-                String jsonLine = reader.nextLine();
-                obj = new JSONParser().parse(jsonLine);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                
+                obj = new JSONParser().parse(line);
                 JSONObject jo = (JSONObject) obj;
 
                 Restaurant r = getValues(jo);

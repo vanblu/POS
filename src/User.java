@@ -31,8 +31,8 @@ public class User {
 
     public boolean checkCity(String city) {
         
-        ArrayList<String> validCity = validCity();
-        if(validCity.contains(city)) {
+        ArrayList<String> validCities = validCities();
+        if(validCities.contains(city)) {
             return true; 
         }
         return false;
@@ -62,14 +62,13 @@ public class User {
         // use a while loop 
         
         System.out.println(
-                "Please enter 5-digit zipcode, latitude, and longitude you want to order from (e.g 80302, 40.7, -74.0)");
+                "Please enter city, latitude, and longitude you want to order from (e.g portland, 40.7, -74.0)");
 
         Scanner scanner = new Scanner(System.in);
         String[] locationInput = scanner.nextLine().split(", ");
         String city = locationInput[0];
         double latitude = Double.parseDouble(locationInput[1]);
         double longitude = Double.parseDouble(locationInput[2]);
-        
 
         while ( !checkLatAndLong(latitude, longitude) || !checkCity(city)) {
 
@@ -192,16 +191,16 @@ public class User {
     }
             
     
-    public ArrayList<String> validCity() {
+    public ArrayList<String> validCities() {
         ArrayList<String> validCity = new ArrayList<>();
          try {
          BufferedReader reader = new BufferedReader(new FileReader("city.txt"));
          String city;
          try {
              city = reader.readLine();
-             while(city != null || city.equals("")) {
+             while(city != null) {
                  
-                 validCity.add(city);
+                 validCity.add(city.trim());
                  city = reader.readLine();
                  
              }
