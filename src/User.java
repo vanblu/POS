@@ -74,6 +74,9 @@ public class User {
         Pos pos = new Pos();
         pos.loadRestauranInfo("yelp_academic_dataset_business.json", zipcode);
         
+        Point userCoordinates = new Point(latitude,longitude);
+        pos.setUserCoordinates(userCoordinates);
+        pos.storeRestaurantsInTree();
         
         System.out.println(" ");
         // to-do: validate
