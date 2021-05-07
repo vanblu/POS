@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class User {
@@ -97,22 +98,24 @@ public class User {
         String cuisineType = scanner.nextLine();
         
         //TODO : update user display 
-        System.out.println("Please enter the maxDist you want to order");
+        System.out.println("Please enter the maxDist: ");
         double maxDist = scanner.nextDouble();
-        System.out.println("Please enter the maxDist you want to order");
+        System.out.println("Please enter the lowest rating: ");
         double lowRatng = scanner.nextDouble();
-        System.out.println("Please enter the maxDist you want to order");
+        System.out.println("Please enter the highest rating: ");
         double highRating = scanner.nextDouble();
         
-        pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
+        List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
         //TODO: ask user how they want to sort the result 
         //TODO: call this in the pos 
         // ask user how many results they want 
-        pos.sortRestaurants(restaurants, sortCriteria, ascending);
+        System.out.println("How do you want to sort the output list: ");
+        int sortCriteria = scanner.nextInt();
+        boolean ascending = scanner.nextBoolean();
+        pos.sortRestaurants(list, sortCriteria, ascending);
         
         
-        
-        
+       
         //user continues to search until they say end 
         
         System.out.println(" ");
@@ -124,7 +127,7 @@ public class User {
         String lowestPrice = priceRange.split("-")[0];
         String highestPrice = priceRange.split("-")[1];
 
-        System.out.println("filtering by location: " + zipcode + ", cuisine: " + cuisine + ", and price range: from $"
+        System.out.println("filtering by location: " + city + ", cuisine: " + cuisineType + ", and price range: from $"
                 + lowestPrice + " to $" + highestPrice);
         // getRestaurantsByLocation
         System.out.println(" ");
