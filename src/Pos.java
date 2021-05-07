@@ -37,13 +37,13 @@ public class Pos implements IPos {
     }
 
     public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 
-            int sortCriteria, boolean ascending) {
+            String sortCriteria, boolean ascending) {
         Comparator<IRestaurant> comp = null;
         switch (sortCriteria) {
-        case 1:
+        case "star":
             comp = new starComparator();
             break;
-        case 2:
+        case "distance":
             comp = new distanceComparator(this.userCoordinates);
             break;
         default:

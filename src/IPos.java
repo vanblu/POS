@@ -49,11 +49,11 @@ public interface IPos {
     /** Given a list of restaurants and a sorting criteria, sort the list of restaurants
      * 
      * @param restaurants list of restaurants to be sorted 
-     * @param sortCriteria criteria used for sorting (1 = rating, 2 = distance, 3 = name)
+     * @param sortCriteria criteria used for sorting (rating, or distance, or name)
      * @param ascending the order of sorting
      */
     public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 
-            int sortCriteria, boolean ascending);
+            String sortCriteria, boolean ascending);
     
     /**
      * @return current user's coordinates 

@@ -109,12 +109,13 @@ public class User {
         //TODO: ask user how they want to sort the result 
         //TODO: call this in the pos 
         // ask user how many results they want 
-        System.out.println("How do you want to sort the output list: ");
-        int sortCriteria = scanner.nextInt();
-        boolean ascending = scanner.nextBoolean();
+        System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");
+       
+        String sortCriteria = scanner.nextLine();
+        
+        System.out.println("Do you want your list to be ascending? (Y or N)");
+        Boolean ascending = scanner.nextLine().equals("Y");
         pos.sortRestaurants(list, sortCriteria, ascending);
-        
-        
        
         //user continues to search until they say end 
         
