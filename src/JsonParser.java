@@ -21,11 +21,10 @@ public class JsonParser {
     /** This method is to parse out the restaurant details from the JSON
      * file 
      * @param JSON object - one entry 
-     * @param zip code that we want to filter by
      * @return parsed out Restaurant details 
      */
     
-    public Restaurant getValues(JSONObject jo,  String zip) {
+    public Restaurant getValues(JSONObject jo) {
         
         long open = (long) jo.get("is_open");
         String z = (String) jo.get("postal_code");
@@ -36,7 +35,7 @@ public class JsonParser {
 //        city = city.toLowerCase();
         
         //c.equals(city) && 
-        if (open == 1 && z.equals(zip)) {
+        if (open == 1 ) {
             Restaurant r = new Restaurant();
             r.setName((String) jo.get("name"));
             r.setCategory((String) jo.get("categories"));
@@ -56,10 +55,9 @@ public class JsonParser {
      * This method reads in the yelp source file and return a list of restaurant 
      * with in the zip 
      * @param filename
-     * @param zip
      * @return list of restaurants
      */
-    public List<Restaurant> read(String filename, String zip) {
+    public List<Restaurant> read(String filename) {
         // output file
         List<Restaurant> l = new ArrayList<>();
 
@@ -74,7 +72,7 @@ public class JsonParser {
                 obj = new JSONParser().parse(jsonLine);
                 JSONObject jo = (JSONObject) obj;
 
-                Restaurant r = getValues(jo, zip);
+                Restaurant r = getValues(jo);
                 if (r != null) {
 
                     l.add(r);
@@ -94,12 +92,12 @@ public class JsonParser {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+       
         return l;
     }
     
     
- public String getValues(JSONObject jo) {
+ public String getValuesZip(JSONObject jo) {
         
         long open = (long) jo.get("is_open");
         String z = (String) jo.get("postal_code");
@@ -128,7 +126,7 @@ public class JsonParser {
                 obj = new JSONParser().parse(jsonLine);
                 JSONObject jo = (JSONObject) obj;
 
-                String zip = getValues(jo);
+                String zip = getValuesZip(jo);
                 if (zip != null || !l.contains(zip)) {
 
                     l.add(zip);

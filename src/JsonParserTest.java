@@ -9,9 +9,9 @@ public class JsonParserTest {
     @Test
     public void testRead() {
         JsonParser test = new JsonParser();
-        List<Restaurant> output = test.read("yelp_academic_dataset_business_TEST.json", "80302");
+        List<Restaurant> output = test.read("yelp_academic_dataset_business_TEST.json");
 
-        assertEquals(2, output.size());
+        assertEquals(23, output.size());
 
     }
 
@@ -19,11 +19,11 @@ public class JsonParserTest {
     public void testReadLargeData() {
         JsonParser test = new JsonParser();
 
-        List<Restaurant> output2 = test.read("yelp_academic_dataset_business.json", "80302");
+        List<Restaurant> output2 = test.read("yelp_academic_dataset_business.json");
 
 //        System.out.println(output2.size());
-
-        assertEquals(628, output2.size());
+        
+        assertEquals(123248, output2.size());
 
     }
 

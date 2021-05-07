@@ -50,6 +50,8 @@ public class User {
     */
     public void startPos(){
         System.out.println("Welcome to Yalp");
+        // use a while loop 
+        
         System.out.println(
                 "Please enter 5-digit zipcode, latitude, and longitude you want to order from (e.g 80302, 40.7, -74.0)");
 
@@ -72,7 +74,7 @@ public class User {
 
         }
         Pos pos = new Pos();
-        pos.loadRestauranInfo("yelp_academic_dataset_business.json", zipcode);
+        pos.loadRestauranInfo("yelp_academic_dataset_business.json");
         
         Point userCoordinates = new Point(latitude,longitude);
         pos.setUserCoordinates(userCoordinates);
@@ -81,8 +83,29 @@ public class User {
         System.out.println(" ");
         // to-do: validate
         System.out.println("Please enter the cuisine you want to order");
-
-        String cuisine = scanner.nextLine();
+        
+        
+        String cuisineType = scanner.nextLine();
+        
+        //TODO : update user display 
+        System.out.println("Please enter the maxDist you want to order");
+        double maxDist = scanner.nextDouble();
+        System.out.println("Please enter the maxDist you want to order");
+        double lowRatng = scanner.nextDouble();
+        System.out.println("Please enter the maxDist you want to order");
+        double highRating = scanner.nextDouble();
+        
+        pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
+        //TODO: ask user how they want to sort the result 
+        //TODO: call this in the pos 
+        // ask user how many results they want 
+        pos.sortRestaurants(restaurants, sortCriteria, ascending);
+        
+        
+        
+        
+        //user continues to search until they say end 
+        
         System.out.println(" ");
         // to-do: validate cuisine
         System.out.println("Please enter the price range (8-30)");

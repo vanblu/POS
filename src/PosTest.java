@@ -6,7 +6,14 @@ public class PosTest {
 
     @Test
     public void testLoadRestaurantInfo() {
-        fail("Not yet implemented");
+        Pos test = new Pos();
+        int output = test.loadRestauranInfo("yelp_academic_dataset_business_TEST.json");
+        assertEquals(23, output);
+        
+        int output2 = test.loadRestauranInfo("yelp_academic_dataset_business.json");
+
+        assertEquals(123248, output2);
+        
     }
 
     @Test

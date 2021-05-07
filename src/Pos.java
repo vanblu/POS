@@ -13,11 +13,12 @@ public class Pos implements IPos {
     
 
     @Override
-    public int loadRestauranInfo(String filepath, String zip) {
+    public int loadRestauranInfo(String filepath) {
 
         JsonParser parse = new JsonParser();
-        List<Restaurant> output = parse.read(filepath, zip);
+        List<Restaurant> output = parse.read(filepath);
         restaurantSet = output; 
+        
         return restaurantSet.size();
     }
 
