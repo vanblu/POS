@@ -31,15 +31,25 @@ public class JsonParser {
         long open = (long) jo.get("is_open");
         String z = (String) jo.get("postal_code");
         String c = (String) jo.get("city");
+        Double latitude = (Double)jo.get("latitude");
+        Double longtitude = (Double)jo.get("longtitude");
+        String name = (String) jo.get("name");
+        String cusineType  = (String) jo.get("cusineType");  
+        double stars = (double) jo.get("stars") ; 
+        String category = (String) jo.get("categories") ; 
         
         // make case insensitive 
         c = c.toLowerCase();
-//        city = city.toLowerCase();
-        
-        //c.equals(city) && 
+
+//        
+//       if(latitude == null || longtitude == null) {
+//           return null; 
+//       }
+//        
+
         if (open == 1 ) {
             Restaurant r = new Restaurant();
-            r.setName((String) jo.get("name"));
+            r.setName(name);
             r.setCategory((String) jo.get("categories"));
             Address a = new Address();
             a.setCity(c);
@@ -47,7 +57,17 @@ public class JsonParser {
             a.setZipCode(z);
             a.setStreet((String) jo.get("address"));
             r.setAddress(a);
-
+            if(latitude != null) {
+                r.setLatitude(latitude);
+            }
+            if(longtitude != null) {
+                r.setLongtitude(longtitude);
+            }
+            
+            r.setStars(stars);
+            r.setCusineType(cusineType);
+            r.setCategory(category);
+           
             return r;
         }
         return null;

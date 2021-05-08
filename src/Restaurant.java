@@ -2,8 +2,8 @@
 public class Restaurant implements IRestaurant {
     String name;
     Address address;
-    String latitude;
-    String longtitude;
+    double latitude;
+    double longtitude;
     String cusineType;
     double stars;
     String category;
@@ -34,19 +34,19 @@ public class Restaurant implements IRestaurant {
         this.address = address;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longtitude;
     }
 
-    public void setLongtitude(String longtitude) {
+    public void setLongtitude(double longtitude) {
         this.longtitude = longtitude;
     }
 
@@ -75,8 +75,8 @@ public class Restaurant implements IRestaurant {
     }
     
     public Point getLocation() {
-        return Coordinates.latLongToPoint(Double.parseDouble(this.getLatitude()), 
-                Double.parseDouble(this.getLongitude()));
+        return Coordinates.latLongToPoint(this.getLatitude(), 
+               this.getLongitude());
     }
 
     @Override

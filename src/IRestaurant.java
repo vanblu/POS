@@ -9,13 +9,13 @@ public interface IRestaurant extends Comparable<IRestaurant> {
 
     public void setAddress(Address address);
 
-    public String getLatitude();
+    public double getLatitude();
 
-    public void setLatitude(String latitude);
+    public void setLatitude(double latitude);
 
-    public String getLongitude();
+    public double getLongitude();
 
-    public void setLongtitude(String longtitude);
+    public void setLongtitude(double longtitude);
 
     public String getCusineType();
 
