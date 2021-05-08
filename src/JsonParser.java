@@ -32,7 +32,7 @@ public class JsonParser {
         String z = (String) jo.get("postal_code");
         String c = (String) jo.get("city");
         Double latitude = (Double)jo.get("latitude");
-        Double longtitude = (Double)jo.get("longtitude");
+        Double longitude = (Double)jo.get("longitude");
         String name = (String) jo.get("name");
         String cusineType  = (String) jo.get("cusineType");  
         double stars = (double) jo.get("stars") ; 
@@ -60,8 +60,8 @@ public class JsonParser {
             if(latitude != null) {
                 r.setLatitude(latitude);
             }
-            if(longtitude != null) {
-                r.setLongtitude(longtitude);
+            if(longitude != null) {
+                r.setLongtitude(longitude);
             }
             
             r.setStars(stars);

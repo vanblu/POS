@@ -22,10 +22,13 @@ public class Pos implements IPos {
     }
 
     public QuadTree storeRestaurantsInTree(String city) {
+        
         // create a quadTree centered at user's location
         head = new QuadTree(userCoordinates); 
         for (IRestaurant r : restaurantSet) {
-            if (r.getAddress().getCity().equals(city)) {
+            
+            if (r.getAddress().getCity().equals(city.toLowerCase())) {
+               
                 head.insert(r);
             }
         }
