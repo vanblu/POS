@@ -32,7 +32,10 @@ public class User {
     public boolean checkCity(String city) {
         
         ArrayList<String> validCities = validCities();
-        if(validCities.contains(city)) {
+        for (int i = 0; i < validCities.get(0).length(); i++) {
+            System.out.println(validCities.get(0).charAt(i));
+        }
+        if (validCities.contains(city)) {
             return true; 
         }
         return false;
@@ -61,107 +64,98 @@ public class User {
         System.out.println("Welcome to Yalp");
         // use a while loop 
         
-        System.out.println(
-                "Please enter city, latitude, and longitude you want to order from (e.g portland, 40.7, -74.0)");
-
-        Scanner scanner = new Scanner(System.in);
-        String[] locationInput = scanner.nextLine().split(", ");
-        String city = locationInput[0];
-        double latitude = Double.parseDouble(locationInput[1]);
-        double longitude = Double.parseDouble(locationInput[2]);
-
-        while ( !checkLatAndLong(latitude, longitude) || !checkCity(city)) {
-
-            System.out.println(
-                    "Please enter 5-digit zipcode, latitude, and longitude you want to order from (e.g 11111, 40.7, -74.0)");
-
-            scanner = new Scanner(System.in);
-            locationInput = scanner.nextLine().split(", ");
-            city = locationInput[0];
-            latitude = Double.parseDouble(locationInput[1]);
-            longitude = Double.parseDouble(locationInput[2]);
-
-        }
         Pos pos = new Pos();
-        pos.loadRestauranInfo("yelp_academic_dataset_business.json");
+        pos.loadRestaurantInfo("yelp_academic_dataset_business.json");
         
-        Point userCoordinates = new Point(latitude,longitude);
-        pos.setUserCoordinates(userCoordinates);
-        pos.storeRestaurantsInTree();
+        boolean running = true;
         
-        System.out.println(" ");
-        // to-do: validate
-        System.out.println("Please enter the cuisine you want to order");
-        
-        
-        String cuisineType = scanner.nextLine();
-        
-        //TODO : update user display 
-        System.out.println("Please enter the maxDist: ");
-        double maxDist = scanner.nextDouble();
-        System.out.println("Please enter the lowest rating: ");
-        double lowRatng = scanner.nextDouble();
-        System.out.println("Please enter the highest rating: ");
-        double highRating = scanner.nextDouble();
-        
-        List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
-        //TODO: ask user how they want to sort the result 
-        //TODO: call this in the pos 
-        // ask user how many results they want 
-        System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");
-       
-        String sortCriteria = scanner.nextLine();
-        
-        System.out.println("Do you want your list to be ascending? (Y or N)");
-        Boolean ascending = scanner.nextLine().equals("Y");
-        pos.sortRestaurants(list, sortCriteria, ascending);
-       
-        //user continues to search until they say end 
-        
-        System.out.println(" ");
-        // to-do: validate cuisine
-        System.out.println("Please enter the price range (8-30)");
-        String priceRange = scanner.nextLine();
-        System.out.println(" ");
-        // to-do: validate price range
-        String lowestPrice = priceRange.split("-")[0];
-        String highestPrice = priceRange.split("-")[1];
+        while (running) {
+            System.out.println(
+                    "Please enter your current city");
+            Scanner scanner = new Scanner(System.in);
+            String city = scanner.nextLine().trim();
+            
+//            
+//            if (!checkCity(city)) {
+//                System.out.println("City name is invalid - please reenter");
+//                continue; 
+//            }
+                        
+            double latitude;
+            double longitude;
+            
+            do {
+                System.out.println(
+                        "Please enter your latitude and longitude in the format (latitude, longitude)");
+                
+                scanner = new Scanner(System.in);
+                String[] locationInput = scanner.nextLine().split(", ");
+                latitude = Double.parseDouble(locationInput[0]);
+                longitude = Double.parseDouble(locationInput[1]);
+                if (!checkLatAndLong(latitude, longitude)) {
+                    System.out.println("Invalid latitude/ longitude - please reenter");
+                }
+            } while (!checkLatAndLong(latitude, longitude));
+          
+            
+            Point userCoordinates = new Point(latitude,longitude);
+            pos.setUserCoordinates(userCoordinates);
+            
+            pos.storeRestaurantsInTree(city);
+            
+            System.out.println(" ");
+            // to-do: validate
+            System.out.println("Please enter the cuisine you want to order");
+            
+            
+            String cuisineType = scanner.nextLine();
+            
+            //TODO : update user display 
+            System.out.println("Please enter the maxDist: ");
+            double maxDist = scanner.nextDouble();
+            System.out.println("Please enter the lowest rating: ");
+            double lowRatng = scanner.nextDouble();
+            System.out.println("Please enter the highest rating: ");
+            double highRating = scanner.nextDouble();
+            
+            List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
+            //TODO: ask user how they want to sort the result 
+            //TODO: call this in the pos 
+            // ask user how many results they want 
+            System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");
+           
+            String sortCriteria = scanner.nextLine();
+            
+            System.out.println("Do you want your list to be ascending? (Y or N)");
+            Boolean ascending = scanner.nextLine().equals("Y");
+            pos.sortRestaurants(list, sortCriteria, ascending);
+           
+            //user continues to search until they say end 
+            
+            System.out.println(" ");
+            // to-do: validate cuisine
+            System.out.println("Please enter the price range (8-30)");
+            String priceRange = scanner.nextLine();
+            System.out.println(" ");
+            // to-do: validate price range
+            String lowestPrice = priceRange.split("-")[0];
+            String highestPrice = priceRange.split("-")[1];
 
-        System.out.println("filtering by location: " + city + ", cuisine: " + cuisineType + ", and price range: from $"
-                + lowestPrice + " to $" + highestPrice);
-        // getRestaurantsByLocation
-        System.out.println(" ");
-        ArrayList<String> restaurants = new ArrayList<String>();
-        restaurants.add("Shake Shack");
-        restaurants.add("McDonalds");
-        restaurants.add("kfc");
+            System.out.println("filtering by location: " + city + ", cuisine: " + cuisineType + ", and price range: from $"
+                    + lowestPrice + " to $" + highestPrice);
+            // getRestaurantsByLocation
+            System.out.println(" ");
+            ArrayList<String> restaurants = new ArrayList<String>();
+            restaurants.add("Shake Shack");
+            restaurants.add("McDonalds");
+            restaurants.add("kfc");
 
-        System.out.println("Here is your list of restaurants: ");
+            System.out.println("Here is your list of restaurants: ");
 
-        for (int i = 0; i < restaurants.size(); i++) {
-            System.out.println(restaurants.get(i));
-        }
-
-        System.out.println("Select a restaurant to order from");
-
-        String restaurant = scanner.nextLine();
-        System.out.println(" ");
-        // to-do: keep on asking for restaurants until valid name appears
-        if (restaurants.contains(restaurant)) {
-            // to-do: getMenu
-            ArrayList<String> menuItems = new ArrayList<String>();
-            menuItems.add("chicken");
-            menuItems.add("burger");
-            menuItems.add("noodles");
-
-            System.out.println("Here is the menu for " + restaurant + ": ");
-            for (int i = 0; i < menuItems.size(); i++) {
-                System.out.println(menuItems.get(i));
+            for (int i = 0; i < restaurants.size(); i++) {
+                System.out.println(restaurants.get(i));
             }
-        } else {
-            System.out.println("No " + restaurant + " near you");
         }
-
     }
     
     public ArrayList<String> validZip() {
@@ -199,7 +193,7 @@ public class User {
          try {
              city = reader.readLine();
              while(city != null) {
-                 
+                 city = city.replaceAll("\\s+","");
                  validCity.add(city.trim());
                  city = reader.readLine();
                  

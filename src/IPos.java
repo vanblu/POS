@@ -15,7 +15,7 @@ public interface IPos {
      * @p4aram zip the specific zipcode requested by the user 
      * @return number of restaurants loaded into the system 
      */
-    public int loadRestauranInfo(String filepath); 
+    public int loadRestaurantInfo(String filepath); 
     
     
     /**
@@ -25,11 +25,13 @@ public interface IPos {
     public Collection<IRestaurant> getRestaurants();
     
     /**
-     * Having loaded restaurant info from json, store them in a quadtree by coordinate 
+     * Store restaurants from a particular city in a quadTree data structure 
      * 
-     * @return a QuadTree storing all restaurant info
+     * @param city the user's city 
+     * 
+     * @return a QuadTree storing info of restaurant from the city 
      */
-    public QuadTree storeRestaurantsInTree();
+    public QuadTree storeRestaurantsInTree(String city);
     
     /**
      * Search for Restaurants using three criteria: distance from user, 

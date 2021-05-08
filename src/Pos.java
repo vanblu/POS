@@ -12,8 +12,7 @@ public class Pos implements IPos {
     Point userCoordinates;
     
 
-    @Override
-    public int loadRestauranInfo(String filepath) {
+    public int loadRestaurantInfo(String filepath) {
 
         JsonParser parse = new JsonParser();
         List<Restaurant> output = parse.read(filepath);
@@ -22,11 +21,13 @@ public class Pos implements IPos {
         return restaurantSet.size();
     }
 
-    public QuadTree storeRestaurantsInTree() {
+    public QuadTree storeRestaurantsInTree(String city) {
         // create a quadTree centered at user's location
         head = new QuadTree(userCoordinates); 
         for (IRestaurant r : restaurantSet) {
-            head.insert(r);
+            if (r.getAddress().getCity().equals(city)) {
+                head.insert(r);
+            }
         }
         return head;
     }
