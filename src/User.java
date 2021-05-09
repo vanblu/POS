@@ -128,7 +128,7 @@ public class User {
             String sortCriteria = scanner.next();
             
             System.out.println("Do you want your list to be ascending? (Y or N)");
-            Boolean ascending = scanner.nextLine().equals("Y");
+            Boolean ascending = scanner.nextBoolean();
           
            
             //user continues to search until they say end 
