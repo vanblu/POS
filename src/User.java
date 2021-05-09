@@ -125,20 +125,22 @@ public class User {
             // ask user how many results they want 
             System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");
            
-            String sortCriteria = scanner.nextLine();
+            String sortCriteria = scanner.next();
             
             System.out.println("Do you want your list to be ascending? (Y or N)");
             Boolean ascending = scanner.nextLine().equals("Y");
-            pos.sortRestaurants(list, sortCriteria, ascending);
+          
            
             //user continues to search until they say end 
             
             System.out.println(" ");
             // to-do: validate cuisine
-           
+            pos.sortRestaurants(list, sortCriteria, ascending);
 
             System.out.println("Here is your list of restaurants: ");
-
+     
+            System.out.println("-----------------------------------------");
+            
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i));
             }
