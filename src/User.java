@@ -65,15 +65,17 @@ public class User {
         Pos pos = new Pos();
         pos.loadRestaurantInfo("yelp_academic_dataset_business.json");
         
-        System.out.println("Welcome to Yalp");
+        System.out.println("===================================");
+        System.out.println("|| \t Welcome to Yalp \t ||");
+        System.out.println("===================================");
         // use a while loop 
-        
-        
+        System.out.println("+ a tool to find spots near you + ");
+        System.out.println("");
         boolean running = true;
         
         while (running) {
             System.out.println(
-                    "Please enter your current city");
+                    "Please enter your current city: ");
             Scanner scanner = new Scanner(System.in);
             String city = scanner.nextLine().trim();
             
@@ -122,7 +124,7 @@ public class User {
     
            
             
-            System.out.println("Please enter the cuisine you want to order: ");
+            System.out.println("Please enter the cateogry you want to search for: ");
             
             
             String cuisineType = scanner.next();
@@ -175,16 +177,22 @@ public class User {
            
             //user continues to search until they say end 
             
-            System.out.println(" ");
+            
             // to-do: validate cuisine
             pos.sortRestaurants(list, sortCriteria, ascending);
-
+            System.out.println("How many reccords would you like to see?");
+            int num = scanner.nextInt();
+            
+            
+            System.out.println(" ");
             System.out.println("Here is your list of restaurants: ");
      
+            System.out.println("  \t name \t\t star \t distance \t" );
             System.out.println("-----------------------------------------");
             int count = 1; 
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(count + ".\t" + list.get(i));
+            for (int i = 0; i < num; i++) {
+                System.out.println(count + ".\t" + list.get(i) + "\t\t" 
+                        + list.get(i).getStars() + "\t");
                 count ++; 
             }
             
