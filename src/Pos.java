@@ -24,11 +24,9 @@ public class Pos implements IPos {
     public QuadTree storeRestaurantsInTree(String city) {
         
         // create a quadTree centered at user's location
-        head = new QuadTree(userCoordinates); 
+        head = new QuadTree(Coordinates.latLongToPoint(userCoordinates.getY(), userCoordinates.getX())); 
         for (IRestaurant r : restaurantSet) {
-            
             if (r.getAddress().getCity().equals(city.toLowerCase())) {
-               
                 head.insert(r);
             }
         }
