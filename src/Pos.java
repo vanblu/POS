@@ -38,9 +38,9 @@ public class Pos implements IPos {
         return head;
     }
 
-    public List<IRestaurant> searchForRestaruants(double maxDist, double lowRatng, double highRating,
-            String cuisineType) {
-        return head.rangeSearch(maxDist, lowRatng, highRating, cuisineType);
+    public List<IRestaurant> searchForRestaurants(double maxDist, double lowRatng, double highRating,
+            String category) {
+        return head.rangeSearch(maxDist, lowRatng, highRating, category);
     }
 
     public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 

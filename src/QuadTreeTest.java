@@ -88,7 +88,7 @@ public class QuadTreeTest {
     public void testRangeSearchInitial() {
         rest.setName("Oskar Blues");
         rest.setStars(3.0);
-        rest.setCusineType("bar");
+      
         List<IRestaurant> searchResult = q.rangeSearch(1000, 2, 4, "bar");
         assertTrue(searchResult.contains(rest));
     }
@@ -100,14 +100,14 @@ public class QuadTreeTest {
         rest1.setLatitude(40.01567942652367);
         rest1.setLongtitude(-105.27733382047006);
         rest1.setStars(3.0);
-        rest1.setCusineType("restaurant");
+  
         q.insert(rest1);
         
         // Avanti Food & Beverage 
         IRestaurant rest2 = new Restaurant();
         rest2.setLatitude(40.01876318787325);
         rest2.setLongtitude(-105.2770302292496);
-        rest2.setCusineType("restaurant");
+  
         rest2.setStars(5.0);
         q.insert(rest2);
         
@@ -115,7 +115,7 @@ public class QuadTreeTest {
         IRestaurant rest3 = new Restaurant();
         rest3.setLatitude(40.015692144987135);
         rest3.setLongtitude(-105.26344802242745);
-        rest3.setCusineType("restaurant");
+     
         rest3.setStars(3.5);
         q.insert(rest3);
         
@@ -123,7 +123,7 @@ public class QuadTreeTest {
         IRestaurant rest4 = new Restaurant();
         rest4.setLatitude(40.01505702182746);
         rest4.setLongtitude(-105.26274632294049);
-        rest4.setCusineType("restaurant");
+ 
         rest4.setStars(2.0);
         q.insert(rest4);
         
@@ -131,7 +131,7 @@ public class QuadTreeTest {
         IRestaurant rest5 = new Restaurant();
         rest5.setLatitude(40.01634955889032);
         rest5.setLongtitude(-105.28441868849664);
-        rest5.setCusineType("restaurant");
+   
         rest5.setStars(3.5);
         q.insert(rest5);
         
@@ -153,7 +153,7 @@ public class QuadTreeTest {
             latitude += 0.0000000001;
             longitude += 0.000000001;
             rest1.setStars(3.0);
-            rest1.setCusineType("restaurant");
+ 
             q.insert(rest1);
         }
         

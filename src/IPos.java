@@ -45,7 +45,7 @@ public interface IPos {
      *  
      *  @return a list containing all the restaurants fulfilling the criteria 
      */
-    public List<IRestaurant> searchForRestaruants(double maxDist,
+    public List<IRestaurant> searchForRestaurants(double maxDist,
             double lowRatng, double highRating, String cuisineType); 
     
     /** Given a list of restaurants and a sorting criteria, sort the list of restaurants

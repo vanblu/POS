@@ -18,10 +18,6 @@ public interface IRestaurant extends Comparable<IRestaurant> {
 
     public void setLongtitude(double longtitude);
 
-    public String getCusineType();
-
-    public void setCusineType(String cusineType);
-
     public double getStars();
 
     public void setStars(double stars);

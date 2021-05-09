@@ -124,10 +124,10 @@ public class User {
     
            
             
-            System.out.println("Please enter the cateogry you want to search for: ");
+            System.out.println("Please enter the category you want to search for: ");
             
             
-            String cuisineType = scanner.next();
+            String category = scanner.next();
             
             
             System.out.println("Please enter the maxDist in meters:  ");
@@ -163,7 +163,7 @@ public class User {
             }
             
             
-            List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRating, highRating, cuisineType);
+            List<IRestaurant>  list = pos.searchForRestaurants(maxDist, lowRating, highRating, category);
 
             // ask user how many results they want 
             System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");

@@ -5,7 +5,7 @@ public class Restaurant implements IRestaurant {
     Address address;
     double latitude;
     double longtitude;
-    String cusineType;
+   
     double stars;
     List<String> category;
     
@@ -51,13 +51,7 @@ public class Restaurant implements IRestaurant {
         this.longtitude = longtitude;
     }
 
-    public String getCusineType() {
-        return cusineType;
-    }
 
-    public void setCusineType(String cusineType) {
-        this.cusineType = cusineType;
-    }
 
     public double getStars() {
         return this.stars;
@@ -76,8 +70,8 @@ public class Restaurant implements IRestaurant {
     }
     
     public Point getLocation() {
-        return Coordinates.latLongToPoint(this.getLongitude(), 
-               this.getLatitude());
+        return Coordinates.latLongToPoint(this.getLatitude(), 
+               this.getLongitude());
     }
     
     public String toString() {

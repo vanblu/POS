@@ -113,7 +113,7 @@ public class QuadTree implements IQuadTree {
         
         double longitude = rest.getLongitude();
         
-        Point restLocation = Coordinates.latLongToPoint(longitude, latitude);
+        Point restLocation = Coordinates.latLongToPoint(latitude, longitude);
         
         if (this.getBotRight().getY() > restLocation.getY() || 
                 this.getBotRight().getX() < restLocation.getX() || 
@@ -154,8 +154,8 @@ public class QuadTree implements IQuadTree {
     
     // recursive helper method for range search
     private void searchHelper(List<IRestaurant> results, Point center,  
-            double maxDist, double lowRating, double highRating, String cuisineType) {
-        cuisineType = cuisineType.toLowerCase();
+            double maxDist, double lowRating, double highRating, String category) {
+        category = category.toLowerCase();
         // base case: does not overlap with search region 
         if (!this.overlaps(center, maxDist)) {
             return;
@@ -166,6 +166,7 @@ public class QuadTree implements IQuadTree {
         SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
 
         for (IRestaurant r : restAtNode) {
+            //TODO: search by category is not working
 //            if (r.getLocation().distanceTo(center) <= maxDist &&
 //                    r.getCategory().contains(cuisineType)) {
 //            System.out.println(r.getName());
@@ -182,21 +183,21 @@ public class QuadTree implements IQuadTree {
         for (IQuadTree q : this.children()) {
             QuadTree qt = (QuadTree) q;
             qt.searchHelper(results, center, maxDist, 
-                    lowRating, highRating, cuisineType);
+                    lowRating, highRating, category);
         }
         
         return;
     }
     
     public List<IRestaurant> rangeSearch(double maxDist,
-            double lowRating, double highRating, String cuisineType) {
+            double lowRating, double highRating, String category) {
 
         if (this.center == null) {
             throw new IllegalArgumentException("rangeSearch only applies to top level block");
         }
         List<IRestaurant> results = new LinkedList<IRestaurant>();
         searchHelper(results, this.center, maxDist,
-                lowRating, highRating, cuisineType);
+                lowRating, highRating, category);
         return results;
     }
 
