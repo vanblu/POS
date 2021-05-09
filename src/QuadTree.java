@@ -115,12 +115,12 @@ public class QuadTree implements IQuadTree {
         
         Point restLocation = Coordinates.latLongToPoint(longitude, latitude);
         
-//        if (this.getBotRight().getY() > restLocation.getY() || 
-//                this.getBotRight().getX() < restLocation.getX() || 
-//                this.getTopLeft().getY() < restLocation.getY() || 
-//                this.getTopLeft().getX() > restLocation.getX()) {
-//            return; 
-//        }
+        if (this.getBotRight().getY() > restLocation.getY() || 
+                this.getBotRight().getX() < restLocation.getX() || 
+                this.getTopLeft().getY() < restLocation.getY() || 
+                this.getTopLeft().getX() > restLocation.getX()) {
+            return; 
+        }
         
         // if Block is already smallest, just add it 
         if (this.depth() == MAX_DEPTH) { 

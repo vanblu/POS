@@ -117,7 +117,7 @@ public class User {
             // compose tree 
             pos.storeRestaurantsInTree(city);
             
-            System.out.println(" ");
+    
            
             
             System.out.println("Please enter the cuisine you want to order: ");
