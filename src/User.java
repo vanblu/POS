@@ -111,11 +111,11 @@ public class User {
             String cuisineType = scanner.nextLine();
             
             //TODO : update user display 
-            System.out.println("Please enter the maxDist: ");
+            System.out.println("Please enter the maxDist in meters ");
             double maxDist = scanner.nextDouble();
-            System.out.println("Please enter the lowest rating: ");
+            System.out.println("Please enter the lowest rating 1-5:");
             double lowRatng = scanner.nextDouble();
-            System.out.println("Please enter the highest rating: ");
+            System.out.println("Please enter the highest rating 1-5: ");
             double highRating = scanner.nextDouble();
             
             List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
@@ -134,26 +134,12 @@ public class User {
             
             System.out.println(" ");
             // to-do: validate cuisine
-            System.out.println("Please enter the price range (8-30)");
-            String priceRange = scanner.nextLine();
-            System.out.println(" ");
-            // to-do: validate price range
-            String lowestPrice = priceRange.split("-")[0];
-            String highestPrice = priceRange.split("-")[1];
-
-            System.out.println("filtering by location: " + city + ", cuisine: " + cuisineType + ", and price range: from $"
-                    + lowestPrice + " to $" + highestPrice);
-            // getRestaurantsByLocation
-            System.out.println(" ");
-            ArrayList<String> restaurants = new ArrayList<String>();
-            restaurants.add("Shake Shack");
-            restaurants.add("McDonalds");
-            restaurants.add("kfc");
+           
 
             System.out.println("Here is your list of restaurants: ");
 
-            for (int i = 0; i < restaurants.size(); i++) {
-                System.out.println(restaurants.get(i));
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i));
             }
         }
     }

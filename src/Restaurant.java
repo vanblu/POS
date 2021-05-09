@@ -78,6 +78,10 @@ public class Restaurant implements IRestaurant {
         return Coordinates.latLongToPoint(this.getLatitude(), 
                this.getLongitude());
     }
+    
+    public String toString() {
+        return this.name; 
+    }
 
     @Override
     // natural order - order by Stars
@@ -95,3 +99,5 @@ public class Restaurant implements IRestaurant {
         return (int) (this.getStars() * 100 - that.getStars() * 100);
     }
 }
+
+

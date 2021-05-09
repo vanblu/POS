@@ -109,8 +109,11 @@ public class QuadTree implements IQuadTree {
     
     // insert a Restaurant in the QuadTree based on its location info
     public void insert(IRestaurant rest) {
-        double latitude = Double.parseDouble(rest.getLatitude());
-        double longitude = Double.parseDouble(rest.getLongitude());
+        System.out.println(rest.getLatitude());
+        System.out.println(rest.getLongitude());
+        double latitude = rest.getLatitude();
+        
+        double longitude = rest.getLongitude();
         
         Point restLocation = Coordinates.latLongToPoint(latitude, longitude);
         
