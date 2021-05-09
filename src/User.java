@@ -82,44 +82,84 @@ public class User {
 //                continue; 
 //            }
                         
-            double latitude;
-            double longitude;
-            
-            do {
-                System.out.println(
-                        "Please enter your latitude and longitude in the format (latitude, longitude)");
+            double latitude = 0.0;
+            double longitude = 0.0;
+            boolean latAndLong = true;
+           
                 
-                scanner = new Scanner(System.in);
-                String[] locationInput = scanner.nextLine().split(", ");
-                latitude = Double.parseDouble(locationInput[0]);
-                longitude = Double.parseDouble(locationInput[1]);
-                if (!checkLatAndLong(latitude, longitude)) {
-                    System.out.println("Invalid latitude/ longitude - please reenter");
+                while(latAndLong ) {
+                    System.out.println(
+                            "Please enter your latitude and longitude in the format (latitude, longitude)");
+                    
+                    scanner = new Scanner(System.in);
+                    String[] locationInput = scanner.nextLine().split(", ");
+                    try {
+                        latitude = Double.parseDouble(locationInput[0]);
+                        longitude = Double.parseDouble(locationInput[1]);
+                        
+                        latAndLong = false; 
+                    }catch(Exception e) {
+                        System.out.println("Incorrect format entered try again");
+                    }
+                    
+//                    if (!checkLatAndLong(latitude, longitude) ) {
+//                        System.out.println("Invalid latitude/ longitude - please reenter");
+//                        latAndLong = true; 
+//                    }
                 }
-            } while (!checkLatAndLong(latitude, longitude));
+               
+           
           
-            
+            // set coordinates 
             Point userCoordinates = new Point(latitude,longitude);
             pos.setUserCoordinates(userCoordinates);
             
+            // compose tree 
             pos.storeRestaurantsInTree(city);
             
             System.out.println(" ");
-            // to-do: validate
-            System.out.println("Please enter the cuisine you want to order");
+           
+            
+            System.out.println("Please enter the cuisine you want to order: ");
             
             
-            String cuisineType = scanner.nextLine();
+            String cuisineType = scanner.next();
             
-            //TODO : update user display 
-            System.out.println("Please enter the maxDist in meters ");
+            
+            System.out.println("Please enter the maxDist in meters:  ");
             double maxDist = scanner.nextDouble();
-            System.out.println("Please enter the lowest rating 1-5:");
-            double lowRatng = scanner.nextDouble();
-            System.out.println("Please enter the highest rating 1-5: ");
-            double highRating = scanner.nextDouble();
+            boolean rating = true; 
+            double lowRating = 0; 
+            while(rating) {
+                System.out.println("Please enter the lowest rating 1-5:");
+                
+                lowRating = scanner.nextDouble();
+                rating = false; 
+                if(lowRating> 5 || lowRating <1  ) {
+                    System.out.println("Incorrect format entered, please try again");
+                    rating = true;  
+                }
+            }
             
-            List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRatng, highRating, cuisineType);
+            double highRating = 0;
+            rating = true; 
+            while(rating) {
+                System.out.println("Please enter the highest rating 1-5: ");
+                
+                highRating = scanner.nextDouble();
+                rating = false; 
+                if(highRating> 5 || highRating <1) {
+                    System.out.println("Incorrect format entered, please try again");
+                    rating = true;  
+                }
+                if(highRating < lowRating) {
+                    System.out.println("The high rating should be larger then the low rating.");
+                    rating = true;  
+                }
+            }
+            
+            
+            List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRating, highRating, cuisineType);
             //TODO: ask user how they want to sort the result 
             //TODO: call this in the pos 
             // ask user how many results they want 
@@ -127,7 +167,7 @@ public class User {
            
             String sortCriteria = scanner.next();
             
-            System.out.println("Do you want your list to be ascending? (Y or N)");
+            System.out.println("Do you want your list to be ascending? (true or false)");
             Boolean ascending = scanner.nextBoolean();
           
            
@@ -144,6 +184,9 @@ public class User {
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i));
             }
+            
+            System.out.println(" ");
+            System.out.println("-----------------------------------------"); 
         }
     }
     
