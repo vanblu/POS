@@ -65,7 +65,7 @@ public class User {
         // use a while loop 
         
         Pos pos = new Pos();
-        pos.loadRestaurantInfo("yelp_academic_dataset_business.json");
+        pos.loadRestaurantInfo("yelp_academic_dataset_business_TEST.json");
         
         boolean running = true;
         
@@ -75,6 +75,7 @@ public class User {
             Scanner scanner = new Scanner(System.in);
             String city = scanner.nextLine().trim();
             
+           
 //            
 //            if (!checkCity(city)) {
 //                System.out.println("City name is invalid - please reenter");

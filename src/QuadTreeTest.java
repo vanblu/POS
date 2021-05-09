@@ -19,8 +19,8 @@ public class QuadTreeTest {
         q = new QuadTree(userCoord);
         // Oskar Blues Taproom
         rest = new Restaurant();
-        rest.setLatitude("40.01774979542888");
-        rest.setLongtitude("-105.28321935607681");
+        rest.setLatitude(40.01774979542888);
+        rest.setLongtitude(-105.28321935607681);
         q.insert(rest);
     }
  
@@ -37,28 +37,28 @@ public class QuadTreeTest {
     public void testInsertMoreThanFive() {
          
         IRestaurant rest1 = new Restaurant();
-        rest1.setLatitude("40.017317315348315");
-        rest1.setLongtitude("-105.282133521546");
+        rest1.setLatitude(40.017317315348315);
+        rest1.setLongtitude(-105.282133521546);
         q.insert(rest1);
         
         IRestaurant rest2 = new Restaurant();
-        rest2.setLatitude("40.017010019627726");
-        rest2.setLongtitude("-105.28075144862171");
+        rest2.setLatitude(40.017010019627726);
+        rest2.setLongtitude(-105.28075144862171);
         q.insert(rest2);
         
         IRestaurant rest3 = new Restaurant();
-        rest3.setLatitude("40.01796604621418");
-        rest3.setLongtitude("-105.28078488586988");
+        rest3.setLatitude(40.01796604621418);
+        rest3.setLongtitude(-105.28078488586988);
         q.insert(rest3);
         
         IRestaurant rest4 = new Restaurant();
-        rest4.setLatitude("40.016241774272196");
-        rest4.setLongtitude("-105.2844295459202");
+        rest4.setLatitude(40.016241774272196);
+        rest4.setLongtitude(-105.2844295459202);
         q.insert(rest4);
         
         IRestaurant rest5 = new Restaurant();
-        rest5.setLatitude("40.01803433331497");
-        rest5.setLongtitude("-105.27833282100421");
+        rest5.setLatitude(40.01803433331497);
+        rest5.setLongtitude(-105.27833282100421);
         q.insert(rest5);
         
         Collection<IRestaurant> rests = q.getRestaurantsAtNode();
@@ -78,8 +78,8 @@ public class QuadTreeTest {
     public void insertOutOfRange() {
         assertEquals(1, q.getRestaurantsAtNode().size());
         IRestaurant restOutOfRange = new Restaurant();
-        restOutOfRange.setLatitude("10");
-        restOutOfRange.setLongtitude("10");
+        restOutOfRange.setLatitude(10);
+        restOutOfRange.setLongtitude(10);
         q.insert(restOutOfRange);
         assertEquals(1, q.getRestaurantsAtNode().size());
     }
@@ -97,40 +97,40 @@ public class QuadTreeTest {
     public void testRangeSearch() {
         // Boulder Dushanbe Teahouse
         IRestaurant rest1 = new Restaurant();
-        rest1.setLatitude("40.01567942652367");
-        rest1.setLongtitude("-105.27733382047006");
+        rest1.setLatitude(40.01567942652367);
+        rest1.setLongtitude(-105.27733382047006);
         rest1.setStars(3.0);
         rest1.setCusineType("restaurant");
         q.insert(rest1);
         
         // Avanti Food & Beverage 
         IRestaurant rest2 = new Restaurant();
-        rest2.setLatitude("40.01876318787325");
-        rest2.setLongtitude("-105.2770302292496");
+        rest2.setLatitude(40.01876318787325);
+        rest2.setLongtitude(-105.2770302292496);
         rest2.setCusineType("restaurant");
         rest2.setStars(5.0);
         q.insert(rest2);
         
         // village coffee shop: >1km away 
         IRestaurant rest3 = new Restaurant();
-        rest3.setLatitude("40.015692144987135");
-        rest3.setLongtitude("-105.26344802242745");
+        rest3.setLatitude(40.015692144987135);
+        rest3.setLongtitude(-105.26344802242745);
         rest3.setCusineType("restaurant");
         rest3.setStars(3.5);
         q.insert(rest3);
         
         // Rincon Argentino: >1km away 
         IRestaurant rest4 = new Restaurant();
-        rest4.setLatitude("40.01505702182746");
-        rest4.setLongtitude("-105.26274632294049");
+        rest4.setLatitude(40.01505702182746);
+        rest4.setLongtitude(-105.26274632294049);
         rest4.setCusineType("restaurant");
         rest4.setStars(2.0);
         q.insert(rest4);
         
         // sherpa 
         IRestaurant rest5 = new Restaurant();
-        rest5.setLatitude("40.01634955889032");
-        rest5.setLongtitude("-105.28441868849664");
+        rest5.setLatitude(40.01634955889032);
+        rest5.setLongtitude(-105.28441868849664);
         rest5.setCusineType("restaurant");
         rest5.setStars(3.5);
         q.insert(rest5);
@@ -148,8 +148,8 @@ public class QuadTreeTest {
         // insert 100 similar restaurants at almost the same location 
         for (int i = 0; i < 100; i++) {
             IRestaurant rest1 = new Restaurant();
-            rest1.setLatitude("" + latitude);
-            rest1.setLongtitude("" + longitude);
+            rest1.setLatitude(latitude);
+            rest1.setLongtitude(longitude);
             latitude += 0.0000000001;
             longitude += 0.000000001;
             rest1.setStars(3.0);
