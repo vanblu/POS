@@ -61,11 +61,13 @@ public class User {
     * method to get user input and call other functions 
     */
     public void startPos(){
+       
+        Pos pos = new Pos();
+        pos.loadRestaurantInfo("yelp_academic_dataset_business.json");
+        
         System.out.println("Welcome to Yalp");
         // use a while loop 
         
-        Pos pos = new Pos();
-        pos.loadRestaurantInfo("yelp_academic_dataset_business_TEST.json");
         
         boolean running = true;
         
@@ -180,15 +182,16 @@ public class User {
             System.out.println("Here is your list of restaurants: ");
      
             System.out.println("-----------------------------------------");
-            
+            int count = 1; 
             for (int i = 0; i < list.size(); i++) {
-                System.out.println(list.get(i));
+                System.out.println(count + ".\t" + list.get(i));
+                count ++; 
             }
             
             System.out.println(" ");
             System.out.println("-----------------------------------------"); 
             
-            System.out.println(" ");
+            
             System.out.println("Do you want to do another search? (Y/N)");
             String next = scanner.next();
             
