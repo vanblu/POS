@@ -183,11 +183,14 @@ public class User {
             System.out.println("How many reccords would you like to see?");
             int num = scanner.nextInt();
             
-            
+            if(num > list.size()) {
+                System.out.println("There are not that many options "
+                        + "near you, but there are" + num + "options avaliable" );
+            }
             System.out.println(" ");
             System.out.println("Here is your list of restaurants: ");
      
-            System.out.println("  \t name \t\t star \t distance \t" );
+            System.out.println("  \t Name \t\t Star \t Distance \t" );
             System.out.println("-----------------------------------------");
             int count = 1; 
             for (int i = 0; i < num; i++) {

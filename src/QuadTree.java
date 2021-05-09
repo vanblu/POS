@@ -172,7 +172,7 @@ public class QuadTree implements IQuadTree {
 //                results.add(r);
 //            }
             if (r.getLocation().distanceTo(center) <= maxDist) {
-            System.out.println(r.getName());
+//            System.out.println(r.getName());
                 results.add(r);
             }
 
