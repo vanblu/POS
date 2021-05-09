@@ -23,7 +23,7 @@ public class JsonParserTest {
 
 //        System.out.println(output2.size());
         
-        assertEquals(123248, output2.size());
+        assertEquals(123148, output2.size());
 
     }
 
@@ -33,7 +33,7 @@ public class JsonParserTest {
 
         List<String> file = test.writeFile();
 
-        assertEquals(110498, file.size());
+        assertEquals(110499, file.size());
 
     }
 
