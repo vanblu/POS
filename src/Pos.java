@@ -51,7 +51,7 @@ public class Pos implements IPos {
             comp = new starComparator();
             break;
         case "distance":
-            comp = new distanceComparator(this.userCoordinates);
+            comp = new distanceComparator(Coordinates.latLongToPoint(userCoordinates.getY(), userCoordinates.getX()));
             break;
         default:
             comp = new nameComparator();

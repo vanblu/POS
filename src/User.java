@@ -102,7 +102,7 @@ public class User {
                         longitude = Double.parseDouble(locationInput[1]);
                         
                         latAndLong = false; 
-                    }catch(Exception e) {
+                    } catch(Exception e) {
                         System.out.println("Incorrect format entered try again");
                     }
                     
@@ -164,8 +164,7 @@ public class User {
             
             
             List<IRestaurant>  list = pos.searchForRestaruants(maxDist, lowRating, highRating, cuisineType);
-            //TODO: ask user how they want to sort the result 
-            //TODO: call this in the pos 
+
             // ask user how many results they want 
             System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");
            
@@ -180,22 +179,25 @@ public class User {
             
             // to-do: validate cuisine
             pos.sortRestaurants(list, sortCriteria, ascending);
-            System.out.println("How many reccords would you like to see?");
+            System.out.println("How many records would you like to see?");
             int num = scanner.nextInt();
             
             if(num > list.size()) {
                 System.out.println("There are not that many options "
-                        + "near you, but there are" + num + "options avaliable" );
+                        + "near you, but there are " + list.size() + " options avaliable" );
+                num = list.size();
             }
             System.out.println(" ");
             System.out.println("Here is your list of restaurants: ");
      
-            System.out.println("  \t Name \t\t Star \t Distance \t" );
+            System.out.printf("  \t %-50s %-5s %-8s\n", "Name", "Star", "Distance");
             System.out.println("-----------------------------------------");
             int count = 1; 
             for (int i = 0; i < num; i++) {
-                System.out.println(count + ".\t" + list.get(i) + "\t\t" 
-                        + list.get(i).getStars() + "\t");
+                double distanceToUser = list.get(i).getLocation().distanceTo(Coordinates.latLongToPoint(
+                        userCoordinates.getY(), userCoordinates.getX()));
+                System.out.printf("%d.\t %-50s %-5s %.2f\n", count, list.get(i), list.get(i).getStars(),
+                        distanceToUser);
                 count ++; 
             }
             
