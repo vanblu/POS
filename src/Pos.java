@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,7 +13,7 @@ public class Pos implements IPos {
     
 
     public int loadRestaurantInfo(String filepath) {
-        restaurantSet =  new ArrayList<>();
+
         JsonParser parse = new JsonParser();
         List<Restaurant> output = parse.read(filepath);
         restaurantSet = output; 
@@ -25,14 +24,17 @@ public class Pos implements IPos {
     public QuadTree storeRestaurantsInTree(String city) {
         
         // create a quadTree centered at user's location
-        head = new QuadTree(userCoordinates); 
+
+        head = new QuadTree(Coordinates.latLongToPoint(userCoordinates.getY(), userCoordinates.getX())); 
+
         for (IRestaurant r : restaurantSet) {
             
-//            if (r.getAddress().getCity().equals(city.toLowerCase())) {
+            if (r.getAddress().getCity().equals(city.toLowerCase())) {
                
                 head.insert(r);
-//            }
+            }
         }
+    
         return head;
     }
 
@@ -67,6 +69,7 @@ public class Pos implements IPos {
         return ret;
     }
 
+    
     public Point getUserCoordinates() {
         return this.userCoordinates;
     }
