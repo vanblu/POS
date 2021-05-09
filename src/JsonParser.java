@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.List;
 
 import java.util.Scanner;
@@ -34,23 +34,28 @@ public class JsonParser {
         Double latitude = (Double)jo.get("latitude");
         Double longitude = (Double)jo.get("longitude");
         String name = (String) jo.get("name");
-        String cusineType  = (String) jo.get("cusineType");  
+      
         double stars = (double) jo.get("stars") ; 
         String category = (String) jo.get("categories") ; 
         
         // make case insensitive 
         c = c.toLowerCase();
 
-//        
-//       if(latitude == null || longtitude == null) {
-//           return null; 
-//       }
-//        
+        
+       if(latitude == null || longitude == null 
+               ||   c == null || name == null 
+              
+                || category == null
+                ) 
+       {
+           return null; 
+       }
+        
 
         if (open == 1 ) {
             Restaurant r = new Restaurant();
             r.setName(name);
-            r.setCategory((String) jo.get("categories"));
+            
             Address a = new Address();
             a.setCity(c);
             a.setState((String) jo.get("state"));
@@ -65,8 +70,34 @@ public class JsonParser {
             }
             
             r.setStars(stars);
-            r.setCusineType(cusineType);
-            r.setCategory(category);
+  
+            
+            String[] elements = category.split(", ");
+            List<String> list = Arrays.asList(elements);
+            
+            r.setCategory(list);
+//            if(list.contains("American" ) || list.contains( "American (New)") || 
+//                    list.contains("American (Traditional)" )) {
+//                r.setCusineType("American");
+//            }else if (list.contains("Vegetarian")) {
+//                r.setCusineType("Vegetarian");
+//            }else if(list.contains("Thai")) {
+//                r.setCusineType("Thai");
+//            }else if(list.contains("Asian Fusion")) {
+//                r.setCusineType("Asian Fusion");
+//            }else if(list.contains("Chinese")) {
+//                r.setCusineType("Chinese");
+//            }else if(list.contains("Steakhouses")) {
+//                r.setCusineType("Steakhouse");
+//            }else if(list.contains("Vietnamese")) {
+//                r.setCusineType("Vietnamese");
+//            }else if(list.contains("Seafood")) {
+//                r.setCusineType("Seafood");
+//            }else if(list.contains("Korean")) {
+//                r.setCusineType("Korean");
+//            }else if(list.contains("Taiwanese")) {
+//                r.setCusineType("Taiwanese");
+//            }
            
             return r;
         }

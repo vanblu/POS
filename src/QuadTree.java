@@ -169,7 +169,7 @@ public class QuadTree implements IQuadTree {
         SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
         for (IRestaurant r : restAtNode) {
             if (r.getLocation().distanceTo(center) <= maxDist &&
-                    r.getCusineType().equals(cuisineType)) {
+                    r.getCategory().contains(cuisineType)) {
                 results.add(r);
             }
         }

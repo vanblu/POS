@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Restaurant implements IRestaurant {
     String name;
@@ -6,7 +7,7 @@ public class Restaurant implements IRestaurant {
     double longtitude;
     String cusineType;
     double stars;
-    String category;
+    List<String> category;
     
     
 
@@ -66,11 +67,11 @@ public class Restaurant implements IRestaurant {
         this.stars = stars;
     }
 
-    public String getCategory() {
+    public List <String> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<String> category) {
         this.category = category;
     }
     

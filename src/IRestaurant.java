@@ -1,3 +1,4 @@
+import java.util.List;
 
 public interface IRestaurant extends Comparable<IRestaurant> {
     
@@ -25,9 +26,9 @@ public interface IRestaurant extends Comparable<IRestaurant> {
 
     public void setStars(double stars);
 
-    public String getCategory();
+    public List<String> getCategory();
 
-    public void setCategory(String category);
+    public void setCategory(List<String> category);
     
     public int compareTo(IRestaurant that);
     
