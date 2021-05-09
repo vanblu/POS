@@ -190,13 +190,13 @@ public class User {
             System.out.println(" ");
             System.out.println("Here is your list of restaurants: ");
      
-            System.out.printf("  \t %-50s %-5s %-8s\n", "Name", "Star", "Distance");
+            System.out.printf("  \t %-50s %-5s %-8s\n", "Name", "Star", "Distance (m)");
             System.out.println("-----------------------------------------");
             int count = 1; 
             for (int i = 0; i < num; i++) {
                 double distanceToUser = list.get(i).getLocation().distanceTo(Coordinates.latLongToPoint(
                         userCoordinates.getY(), userCoordinates.getX()));
-                System.out.printf("%d.\t %-50s %-5s %.2f\n", count, list.get(i), list.get(i).getStars(),
+                System.out.printf("%d.\t %-50s %-5s %.0f\n", count, list.get(i), list.get(i).getStars(),
                         distanceToUser);
                 count ++; 
             }
