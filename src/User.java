@@ -187,6 +187,12 @@ public class User {
             
             System.out.println(" ");
             System.out.println("-----------------------------------------"); 
+            
+            System.out.println("Do you want to do another search? (Y/N)");
+            String next = scanner.next();
+            if(next.toLowerCase() == "n") {
+                running = false; 
+            }
         }
     }
     
