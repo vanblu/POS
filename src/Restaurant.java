@@ -76,8 +76,8 @@ public class Restaurant implements IRestaurant {
     }
     
     public Point getLocation() {
-        return Coordinates.latLongToPoint(this.getLatitude(), 
-               this.getLongitude());
+        return Coordinates.latLongToPoint(this.getLongitude(), 
+               this.getLatitude());
     }
     
     public String toString() {

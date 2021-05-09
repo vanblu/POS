@@ -109,15 +109,12 @@ public class QuadTree implements IQuadTree {
     
     // insert a Restaurant in the QuadTree based on its location info
     public void insert(IRestaurant rest) {
-        System.out.println(rest.getLatitude());
-        System.out.println(rest.getLongitude());
         double latitude = rest.getLatitude();
         
         double longitude = rest.getLongitude();
         
-        Point restLocation = Coordinates.latLongToPoint(latitude, longitude);
+        Point restLocation = Coordinates.latLongToPoint(longitude, latitude);
         
-        // if Restaurant location is outside of the quadTree, just return
         if (this.getBotRight().getY() > restLocation.getY() || 
                 this.getBotRight().getX() < restLocation.getX() || 
                 this.getTopLeft().getY() < restLocation.getY() || 
@@ -167,11 +164,18 @@ public class QuadTree implements IQuadTree {
         IRestaurant upperBound = new Restaurant(highRating);
         // use treeset to efficiently find restaurants within the specified ratings range 
         SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
+
         for (IRestaurant r : restAtNode) {
-            if (r.getLocation().distanceTo(center) <= maxDist &&
-                    r.getCategory().contains(cuisineType)) {
+//            if (r.getLocation().distanceTo(center) <= maxDist &&
+//                    r.getCategory().contains(cuisineType)) {
+//            System.out.println(r.getName());
+//                results.add(r);
+//            }
+            if (r.getLocation().distanceTo(center) <= maxDist) {
+            System.out.println(r.getName());
                 results.add(r);
             }
+
         }
         
         // recursively search through children
@@ -186,6 +190,7 @@ public class QuadTree implements IQuadTree {
     
     public List<IRestaurant> rangeSearch(double maxDist,
             double lowRating, double highRating, String cuisineType) {
+
         if (this.center == null) {
             throw new IllegalArgumentException("rangeSearch only applies to top level block");
         }
