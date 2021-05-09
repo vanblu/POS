@@ -7,27 +7,29 @@ import java.util.List;
 
 
 public class Pos implements IPos {
-
+    
     List<Restaurant> restaurantSet; // load restaurant to this collection
-    QuadTree head; // head of the QuadTree storing restaurants
+    QuadTree head; // head of the QuadTree storing restaurants 
     Point userCoordinates;
-
+    
 
     public int loadRestaurantInfo(String filepath) {
         restaurantSet =  new ArrayList<>();
         JsonParser parse = new JsonParser();
         List<Restaurant> output = parse.read(filepath);
-        restaurantSet = output;
-
+        restaurantSet = output; 
+        
         return restaurantSet.size();
     }
 
     public QuadTree storeRestaurantsInTree(String city) {
-
+        
         // create a quadTree centered at user's location
-        head = new QuadTree(Coordinates.latLongToPoint(userCoordinates.getY(), userCoordinates.getX()));
+        head = new QuadTree(userCoordinates); 
         for (IRestaurant r : restaurantSet) {
-            if (r.getAddress().getCity().equals(city.toLowerCase())) {
+            
+//            if (r.getAddress().getCity().equals(city.toLowerCase())) {
+               
                 head.insert(r);
 //            }
         }
@@ -39,7 +41,7 @@ public class Pos implements IPos {
         return head.rangeSearch(maxDist, lowRatng, highRating, cuisineType);
     }
 
-    public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants,
+    public List<IRestaurant> sortRestaurants(List<IRestaurant> restaurants, 
             String sortCriteria, boolean ascending) {
         Comparator<IRestaurant> comp = null;
         switch (sortCriteria) {
