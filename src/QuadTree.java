@@ -158,7 +158,7 @@ public class QuadTree implements IQuadTree {
     // recursive helper method for range search
     private void searchHelper(List<IRestaurant> results, Point center,  
             double maxDist, double lowRating, double highRating, String cuisineType) {
-
+        cuisineType = cuisineType.toLowerCase();
         // base case: does not overlap with search region 
         if (!this.overlaps(center, maxDist)) {
             return;

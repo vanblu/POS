@@ -73,7 +73,13 @@ public class JsonParser {
   
             
             String[] elements = category.split(", ");
+            
             List<String> list = Arrays.asList(elements);
+            int j =0; 
+            for(String i : list) {
+                list.set(j, i.toLowerCase());
+                j++; 
+            }
             
             r.setCategory(list);
 //            if(list.contains("American" ) || list.contains( "American (New)") || 
