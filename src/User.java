@@ -11,11 +11,11 @@ public class User {
      * @return
      */
     public boolean checkCity(String city, Pos pos) {
-        HashMap<String, List<String>> cities = pos.getStateAndCity(); 
-        for (Map.Entry<String, List<String>> entry: cities.entrySet()) {
+        HashMap<String, List<String>> cities = pos.getStateAndCity();
+        for (Map.Entry<String, List<String>> entry : cities.entrySet()) {
             for (String i : entry.getValue()) {
                 if (city.equals(i)) {
-                    return true; 
+                    return true;
                 }
             }
         }
@@ -24,7 +24,7 @@ public class User {
     }
 
     /**
-     * void method to print top cities to search for 
+     * void method to print top cities to search for
      */
     public void printTopCity() {
         System.out.println("1.\tAustin");
@@ -86,6 +86,7 @@ public class User {
 
                 printTopCity();
                 System.out.println("Enter the number associated to the city you want to search for: ");
+                try {
                 int cityNum = scanner.nextInt();
                 getCity = false;
                 if (cityNum == 1) {
@@ -102,6 +103,11 @@ public class User {
                     System.out.println("Invalid number entered! Try again");
                     getCity = true;
                 }
+                }catch (Exception e){
+                    System.out.println("Invalid entry! Try again.");
+                    getCity = true; 
+                }
+               
 
             }      
             
@@ -195,7 +201,7 @@ public class User {
             System.out.println("Here is your list of restaurants: ");
 
             System.out.printf("  \t %-50s %-5s %-8s\n", "Name", "Star", "Distance (m)");
-            System.out.println("-----------------------------------------");
+            System.out.println("----------------------------------------------------------------------------");
             int count = 1;
             for (int i = 0; i < num; i++) {
                 double distanceToUser = list.get(i).getLocation()
@@ -206,7 +212,7 @@ public class User {
             }
 
             System.out.println(" ");
-            System.out.println("-----------------------------------------");
+            System.out.println("----------------------------------------------------------------------------");
 
             System.out.println("Do you want to do another search? (Y/N)");
             String next = scanner.next();

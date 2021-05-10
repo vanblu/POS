@@ -27,17 +27,7 @@ public class JsonParserTest {
 
     }
 
-    /*
-    @Test
-    public void testWriteZip() {
-        JsonParser test = new JsonParser();
 
-        List<String> file = test.writeFile();
-
-        assertEquals(110499, file.size());
-
-    }
-    */
 
     @Test
     public void testWriteCity() {

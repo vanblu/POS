@@ -73,29 +73,7 @@ public class JsonParser {
             }
 
             r.setCategory(list);
-//            if(list.contains("American" ) || list.contains( "American (New)") || 
-//                    list.contains("American (Traditional)" )) {
-//                r.setCusineType("American");
-//            }else if (list.contains("Vegetarian")) {
-//                r.setCusineType("Vegetarian");
-//            }else if(list.contains("Thai")) {
-//                r.setCusineType("Thai");
-//            }else if(list.contains("Asian Fusion")) {
-//                r.setCusineType("Asian Fusion");
-//            }else if(list.contains("Chinese")) {
-//                r.setCusineType("Chinese");
-//            }else if(list.contains("Steakhouses")) {
-//                r.setCusineType("Steakhouse");
-//            }else if(list.contains("Vietnamese")) {
-//                r.setCusineType("Vietnamese");
-//            }else if(list.contains("Seafood")) {
-//                r.setCusineType("Seafood");
-//            }else if(list.contains("Korean")) {
-//                r.setCusineType("Korean");
-//            }else if(list.contains("Taiwanese")) {
-//                r.setCusineType("Taiwanese");
-//            }
-
+          
             return r;
         }
         return null;
@@ -144,89 +122,11 @@ public class JsonParser {
 
         return l;
     }
-/*
-    public String getValuesZip(JSONObject jo) {
-
-        long open = (long) jo.get("is_open");
-        String z = (String) jo.get("postal_code");
-
-        if (open == 1 && checkZip(z)) {
-
-            return z;
-        }
-        return null;
-    }
-    */
-/*
-    public List<String> readAllZip(String filename) {
-        // output file
-        List<String> l = new ArrayList<>();
-
-        // parsing file
-        Object obj;
-        try {
-            File fileObj = new File(filename);
-            Scanner reader = new Scanner(fileObj);
-
-            while (reader.hasNextLine()) {
-                String jsonLine = reader.nextLine();
-                obj = new JSONParser().parse(jsonLine);
-                JSONObject jo = (JSONObject) obj;
-
-                String zip = getValuesZip(jo);
-                if (zip != null || !l.contains(zip)) {
-
-                    l.add(zip);
-                }
-
-            }
-            reader.close();
-        } catch (
-
-        FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return l;
-    }
-
-    public boolean checkZip(String zip) {
-        if (zip.length() != 5) {
-            return false;
-        }
-        if (zip.matches("[0-9]+")) {
-            return true;
-        }
-
-        return false;
-    }
-*/
-   /*
-    public List<String> writeFile() {
-        List<String> zipList = readAllZip("yelp_academic_dataset_business.json");
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream("zip_codes_c.txt");
-
-            DataOutputStream outStream = new DataOutputStream(new BufferedOutputStream(fos));
-
-            for (String i : zipList) {
-                outStream.writeChars("\"" + i + "\", ");
-            }
-
-            outStream.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return zipList;
-    }
-*/
+/**
+ * takes in a JSON object and find the city tag and return the city 
+ * @param jo
+ * @return returns the city associated to the location 
+ */
     public String getCityValues(JSONObject jo) {
 
         long open = (long) jo.get("is_open");
@@ -252,7 +152,7 @@ public class JsonParser {
     }
 
     /**
-     * 
+     * parse out all the city and state combinations 
      * @param filename
      * @return list of state with city 
      */
@@ -309,7 +209,7 @@ public class JsonParser {
     }
 
     /**
-     * write the state and cities into a text file 
+     * write the state and cities and state into a text file 
      * @return
      */
     public HashMap<String, List<String>> writeFileCity() {
