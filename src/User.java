@@ -107,7 +107,7 @@ public class User {
             
             HashMap<String, List<String>> stateAndCity = pos.getStateAndCity();
             if (!checkCity(city, pos) || stateAndCity.containsKey(city) ||
-                    city.equals("help")) {
+                    !city.equals("help")) {
                 System.out.println("City name is invalid - please reenter");
                 continue; 
             }
