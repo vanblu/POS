@@ -26,7 +26,7 @@ public class JsonParserTest {
         assertEquals(123148, output2.size());
 
     }
-
+/*
     @Test
     public void testWriteZip() {
         JsonParser test = new JsonParser();
@@ -36,6 +36,7 @@ public class JsonParserTest {
         assertEquals(110499, file.size());
 
     }
+    */
 
     @Test
     public void testWriteCity() {
