@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -57,6 +58,13 @@ public class User {
         return true;
     }
     
+    public void printTopCity() {
+        System.out.println("1.\tAustin");
+        System.out.println("2.\tPortland");
+        System.out.println("3.\tBoston");
+        System.out.println("4.\tIrvine");
+        System.out.println("5.\tHampton");
+    }
    /**
     * method to get user input and call other functions 
     */
@@ -75,11 +83,56 @@ public class User {
         
         while (running) {
             System.out.println(
-                    "Please enter your current city: ");
+                    "Please enter the city you want to search for stores: ");
+            System.out.println("**If you need help on the valid cities type help "
+                    + "to print the top five cities \n or type the state two"
+                    + "letter code to get a list of cities");
             Scanner scanner = new Scanner(System.in);
             String city = scanner.nextLine().trim();
+            HashMap<String, List<String>> stateAndCity = pos.getStateAndCity();
             
-           
+            
+            // option to enter a state
+            if(stateAndCity.containsKey(city)) {
+                List<String> cities = stateAndCity.get(city);
+                int j = 1; 
+                for(String i : cities) {
+                    System.out.println(j + ".\t" + i);
+                }
+                System.out.println("Enter the number associated to the city you want to search for: ");
+                int stateCityNum = scanner.nextInt();
+                city = cities.get(stateCityNum-1);
+            }
+            
+            boolean getCity = false;
+            if(city.equals("help")) {
+                getCity = true; 
+            }
+            while(getCity) {
+               
+                    printTopCity();
+                    System.out.println("Enter the number associated to the city you want to search for: ");
+                    int cityNum = scanner.nextInt();
+                    getCity = false; 
+                    if(cityNum == 1) {
+                        city = "Austin";
+                    }else if (cityNum ==2) {
+                        city = "Portland";
+                    }else if (cityNum == 3) {
+                        city = "Boston";
+                    }else if (cityNum == 4) {
+                        city = "Irvine";
+                    }else if (cityNum== 5) {
+                        city = "Austin";
+                    }else {
+                        System.out.println("Invalid number entered!Try again");
+                        getCity = true; 
+                    }
+                
+            }
+            
+            
+            
 //            
 //            if (!checkCity(city)) {
 //                System.out.println("City name is invalid - please reenter");
@@ -212,6 +265,8 @@ public class User {
                 running = false; 
             }
         }
+       
+       
     }
     
     public ArrayList<String> validZip() {

@@ -1,23 +1,30 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class Pos implements IPos {
     
-    List<Restaurant> restaurantSet; // load restaurant to this collection
+    List<Restaurant> restaurantSet = new ArrayList<>(); // load restaurant to this collection
+    HashMap<String, List<String>> stateAndCity = new HashMap<>();
     QuadTree head; // head of the QuadTree storing restaurants 
     Point userCoordinates;
     
 
+    public HashMap<String, List<String>>  getStateAndCity(){
+        
+        return stateAndCity;
+    }
     public int loadRestaurantInfo(String filepath) {
 
         JsonParser parse = new JsonParser();
         List<Restaurant> output = parse.read(filepath);
         restaurantSet = output; 
-        
+        stateAndCity = parse.readAllCity(filepath);
         return restaurantSet.size();
     }
 

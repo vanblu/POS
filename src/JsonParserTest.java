@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -41,9 +42,9 @@ public class JsonParserTest {
     public void testWriteCity() {
         JsonParser test = new JsonParser();
 
-        List<String> file = test.writeFileCity();
+        HashMap<String, List<String>> file = test.writeFileCity();
 
-        assertEquals(672, file.size());
+        assertEquals(29, file.size());
 
     }
 

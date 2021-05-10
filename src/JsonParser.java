@@ -8,8 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import java.util.Scanner;
 
 import org.json.simple.JSONObject;
@@ -17,70 +18,62 @@ import org.json.simple.parser.*;
 
 public class JsonParser {
 
-
-    
-    
-    /** This method is to parse out the restaurant details from the JSON
-     * file 
-     * @param JSON object - one entry 
-     * @return parsed out Restaurant details 
+    /**
+     * This method is to parse out the restaurant details from the JSON file
+     * 
+     * @param JSON object - one entry
+     * @return parsed out Restaurant details
      */
-    
+
     public Restaurant getValues(JSONObject jo) {
-        
+
         long open = (long) jo.get("is_open");
         String z = (String) jo.get("postal_code");
         String c = (String) jo.get("city");
-        Double latitude = (Double)jo.get("latitude");
-        Double longitude = (Double)jo.get("longitude");
+        Double latitude = (Double) jo.get("latitude");
+        Double longitude = (Double) jo.get("longitude");
         String name = (String) jo.get("name");
-      
-        double stars = (double) jo.get("stars") ; 
-        String category = (String) jo.get("categories") ; 
-        
-        // make case insensitive 
+
+        double stars = (double) jo.get("stars");
+        String category = (String) jo.get("categories");
+
+        // make case insensitive
         c = c.toLowerCase();
 
-        
-       if(latitude == null || longitude == null 
-               ||   c == null || name == null 
-              
-                || category == null
-                ) 
-       {
-           return null; 
-       }
-        
+        if (latitude == null || longitude == null || c == null || name == null
 
-        if (open == 1 ) {
+                || category == null) {
+            return null;
+        }
+
+        if (open == 1) {
             Restaurant r = new Restaurant();
             r.setName(name);
-            
+
             Address a = new Address();
             a.setCity(c);
             a.setState((String) jo.get("state"));
             a.setZipCode(z);
             a.setStreet((String) jo.get("address"));
             r.setAddress(a);
-            if(latitude != null) {
+            if (latitude != null) {
                 r.setLatitude(latitude);
             }
-            if(longitude != null) {
+            if (longitude != null) {
                 r.setLongtitude(longitude);
             }
-            
+
             r.setStars(stars);
-  
-            
+
             String[] elements = category.split(", ");
-            
+
             List<String> list = Arrays.asList(elements);
-            int j =0; 
-            for(String i : list) {
+            int j = 0;
+            for (String i : list) {
                 list.set(j, i.toLowerCase());
-                j++; 
+                j++;
             }
-            
+
             r.setCategory(list);
 //            if(list.contains("American" ) || list.contains( "American (New)") || 
 //                    list.contains("American (Traditional)" )) {
@@ -104,15 +97,16 @@ public class JsonParser {
 //            }else if(list.contains("Taiwanese")) {
 //                r.setCusineType("Taiwanese");
 //            }
-           
+
             return r;
         }
         return null;
     }
 
     /**
-     * This method reads in the yelp source file and return a list of restaurant 
-     * with in the zip 
+     * This method reads in the yelp source file and return a list of restaurant
+     * with in the zip
+     * 
      * @param filename
      * @return list of restaurants
      */
@@ -128,7 +122,7 @@ public class JsonParser {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                
+
                 obj = new JSONParser().parse(line);
                 JSONObject jo = (JSONObject) obj;
 
@@ -152,25 +146,22 @@ public class JsonParser {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       
+
         return l;
     }
-    
-    
- public String getValuesZip(JSONObject jo) {
-        
+
+    public String getValuesZip(JSONObject jo) {
+
         long open = (long) jo.get("is_open");
         String z = (String) jo.get("postal_code");
-        
-        
 
-        if ( open == 1 && checkZip(z)) {
-            
+        if (open == 1 && checkZip(z)) {
+
             return z;
         }
         return null;
     }
-    
+
     public List<String> readAllZip(String filename) {
         // output file
         List<String> l = new ArrayList<>();
@@ -217,7 +208,7 @@ public class JsonParser {
         if (zip.matches("[0-9]+")) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -226,15 +217,15 @@ public class JsonParser {
         FileOutputStream fos;
         try {
             fos = new FileOutputStream("zip_codes_c.txt");
-            
+
             DataOutputStream outStream = new DataOutputStream(new BufferedOutputStream(fos));
-            
-            for(String i : zipList) {
-                outStream.writeChars("\""+i +"\", ");
+
+            for (String i : zipList) {
+                outStream.writeChars("\"" + i + "\", ");
             }
-            
+
             outStream.close();
-            
+
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -242,27 +233,37 @@ public class JsonParser {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       
-        return zipList; 
+
+        return zipList;
     }
-    
- public String getCityValues(JSONObject jo) {
-        
+
+    public String getCityValues(JSONObject jo) {
+
         long open = (long) jo.get("is_open");
         String city = (String) jo.get("city");
-        
-        
 
-        if ( open == 1 ) {
-            
+        if (open == 1) {
+
             return city;
         }
         return null;
     }
-    
-    public List<String> readAllCity(String filename) {
+
+    public String getStateValues(JSONObject jo) {
+
+        long open = (long) jo.get("is_open");
+        String state = (String) jo.get("state");
+
+        if (open == 1) {
+
+            return state;
+        }
+        return null;
+    }
+
+    public HashMap<String, List<String>> readAllCity(String filename) {
         // output file
-        List<String> l = new ArrayList<>();
+        HashMap<String, List<String>> l = new HashMap<>();
 
         // parsing file
         Object obj;
@@ -276,14 +277,21 @@ public class JsonParser {
                 JSONObject jo = (JSONObject) obj;
 
                 String city = getCityValues(jo);
-            
-                if (city != null && !l.contains(city)) {
+                String state = getStateValues(jo);
+                if (city != null && state != null) {
+                    state = state.toUpperCase();
                     city = city.toLowerCase();
                     city.trim();
-                    if(!l.contains(city)) {
-                        l.add(city);
+                    if (l.containsKey(state)) {
+                        if (!l.get(state).contains(city)) {
+                            l.get(state).add(city);
+                        }
+                    } else {
+                        List<String> cities = new ArrayList<>();
+
+                        l.put(state, cities);
                     }
-                    
+
                 }
 
             }
@@ -303,21 +311,24 @@ public class JsonParser {
 
         return l;
     }
-    
-    public List<String> writeFileCity() {
-        List<String> zipList = readAllCity("yelp_academic_dataset_business.json");
+
+    public HashMap<String, List<String>> writeFileCity() {
+        HashMap<String, List<String>> zipList = readAllCity("yelp_academic_dataset_business.json");
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream("city.txt");
-            
+            fos = new FileOutputStream("stateAndCity.txt");
+
             DataOutputStream outStream = new DataOutputStream(new BufferedOutputStream(fos));
-            
-            for(String i : zipList) {
-                outStream.writeChars(i + "\n");
+
+            for (Map.Entry<String, List<String>> entry : zipList.entrySet()) {
+                for (String i : entry.getValue()) {
+                    outStream.writeChars(entry.getKey() + ", " + i + "\n");
+                }
+
             }
-            
+
             outStream.close();
-            
+
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -325,7 +336,7 @@ public class JsonParser {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       
-        return zipList; 
+
+        return zipList;
     }
 }
