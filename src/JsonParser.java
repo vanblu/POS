@@ -146,7 +146,7 @@ public class JsonParser {
 
         return l;
     }
-
+/*
     public String getValuesZip(JSONObject jo) {
 
         long open = (long) jo.get("is_open");
@@ -158,7 +158,8 @@ public class JsonParser {
         }
         return null;
     }
-
+    */
+/*
     public List<String> readAllZip(String filename) {
         // output file
         List<String> l = new ArrayList<>();
@@ -203,7 +204,8 @@ public class JsonParser {
 
         return false;
     }
-
+*/
+   /*
     public List<String> writeFile() {
         List<String> zipList = readAllZip("yelp_academic_dataset_business.json");
         FileOutputStream fos;
@@ -226,7 +228,7 @@ public class JsonParser {
 
         return zipList;
     }
-
+*/
     public String getCityValues(JSONObject jo) {
 
         long open = (long) jo.get("is_open");
@@ -260,37 +262,47 @@ public class JsonParser {
         // output file
         HashMap<String, List<String>> l = new HashMap<>();
 
-        // parsing file
         Object obj;
         try {
             File fileObj = new File(filename);
-            Scanner reader = new Scanner(fileObj);
+            BufferedReader reader = new BufferedReader(new FileReader(fileObj));
 
-            while (reader.hasNextLine()) {
-                String jsonLine = reader.nextLine();
-                obj = new JSONParser().parse(jsonLine);
-                JSONObject jo = (JSONObject) obj;
+            String line;
+            try {
+                while ((line = reader.readLine()) != null) {
 
-                String city = getCityValues(jo);
-                String state = getStateValues(jo);
-                if (city != null && state != null) {
-                    state = state.toLowerCase();
-                    city = city.toLowerCase();
-                    city.trim();
-                    if (l.containsKey(state)) {
-                        if (!l.get(state).contains(city)) {
-                            l.get(state).add(city);
+                    obj = new JSONParser().parse(line);
+                    JSONObject jo = (JSONObject) obj;
+
+                    String city = getCityValues(jo);
+                    String state = getStateValues(jo);
+                    if (city != null && state != null) {
+                        state = state.toLowerCase();
+                        city = city.toLowerCase();
+                        city.trim();
+                        if (l.containsKey(state)) {
+                            if (!l.get(state).contains(city)) {
+                                l.get(state).add(city);
+                            }
+                        } else {
+                            List<String> cities = new ArrayList<>();
+
+                            l.put(state, cities);
                         }
-                    } else {
-                        List<String> cities = new ArrayList<>();
 
-                        l.put(state, cities);
                     }
 
                 }
-
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            reader.close();
+            try {
+                reader.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ParseException e) {
