@@ -32,12 +32,10 @@ public class Pos implements IPos {
         
         // create a quadTree centered at user's location
 
-        head = new QuadTree(Coordinates.latLongToPoint(userCoordinates.getY(), userCoordinates.getX())); 
+        head = new QuadTree(Coordinates.latLongToPoint(userCoordinates.getX(), userCoordinates.getY())); 
 
         for (IRestaurant r : restaurantSet) {
-            
             if (r.getAddress().getCity().equals(city.toLowerCase())) {
-               
                 head.insert(r);
             }
         }
@@ -58,7 +56,7 @@ public class Pos implements IPos {
             comp = new starComparator();
             break;
         case "distance":
-            comp = new distanceComparator(Coordinates.latLongToPoint(userCoordinates.getY(), userCoordinates.getX()));
+            comp = new distanceComparator(Coordinates.latLongToPoint(userCoordinates.getX(), userCoordinates.getY()));
             break;
         default:
             comp = new nameComparator();
