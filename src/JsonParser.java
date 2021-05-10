@@ -261,6 +261,11 @@ public class JsonParser {
         return null;
     }
 
+    /**
+     * 
+     * @param filename
+     * @return list of state with city 
+     */
     public HashMap<String, List<String>> readAllCity(String filename) {
         // output file
         HashMap<String, List<String>> l = new HashMap<>();
@@ -312,6 +317,10 @@ public class JsonParser {
         return l;
     }
 
+    /**
+     * write the state and cities into a text file 
+     * @return
+     */
     public HashMap<String, List<String>> writeFileCity() {
         HashMap<String, List<String>> zipList = readAllCity("yelp_academic_dataset_business.json");
         FileOutputStream fos;
