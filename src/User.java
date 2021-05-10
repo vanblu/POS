@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class User {
@@ -14,35 +15,42 @@ public class User {
      * @param zip
      * @return
      */
-    public boolean checkZip(String zip) {
-        if (zip.length() != 5) {
-            return false;
-        }
-        if (zip.matches("[0-9]+")) {
-            return true;
-        }
-        // read in valid zip
-        ArrayList<String> validzips = validZip();
-        if (validzips.contains(zip)) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean checkZip(String zip) {
+//        if (zip.length() != 5) {
+//            return false;
+//        }
+//        if (zip.matches("[0-9]+")) {
+//            return true;
+//        }
+//        // read in valid zip
+//        ArrayList<String> validzips = validZip();
+//        if (validzips.contains(zip)) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * 
      * @param city
      * @return
      */
-    public boolean checkCity(String city) {
-
-        ArrayList<String> validCities = validCities();
-        for (int i = 0; i < validCities.get(0).length(); i++) {
-            System.out.println(validCities.get(0).charAt(i));
+    public boolean checkCity(String city, Pos pos) {
+        HashMap<String, List<String>> cities = pos.getStateAndCity(); 
+        for(Map.Entry<String, List<String>> entry: cities.entrySet()) {
+            for(String i : entry.getValue()) {
+                if(city.equals(i)) {
+                    return true; 
+                }
+            }
         }
-        if (validCities.contains(city)) {
-            return true;
-        }
+//        ArrayList<String> validCities = validCities();
+//        for (int i = 0; i < validCities.get(0).length(); i++) {
+//            System.out.println(validCities.get(0).charAt(i));
+//        }
+//        if (validCities.contains(city)) {
+//            return true;
+//        }
         return false;
     }
 
@@ -90,13 +98,19 @@ public class User {
         boolean running = true;
 
         while (running) {
-            System.out.println("Please enter the city you want to search for stores: ");
-            System.out.println("**If you need help on the valid cities type help "
-                    + "to print the top five cities \n or type the state two" + "letter code to get a list of cities");
+            System.out.println("Please enter the city where you want to search: ");
+            System.out.println("\n**If you need help on the valid cities type help "
+                    + "to print the top five cities \n or type the state two " + "letter code to get a list of cities **");
             Scanner scanner = new Scanner(System.in);
             String city = scanner.nextLine().trim();
+            city = city.toLowerCase();
+            
             HashMap<String, List<String>> stateAndCity = pos.getStateAndCity();
-
+            if (!checkCity(city, pos) || stateAndCity.containsKey(city) ||
+                    city.equals("help")) {
+                System.out.println("City name is invalid - please reenter");
+                continue; 
+            }
             // option to enter a state
             if (stateAndCity.containsKey(city)) {
                 List<String> cities = stateAndCity.get(city);
@@ -139,10 +153,7 @@ public class User {
             }
 
 //            
-//            if (!checkCity(city)) {
-//                System.out.println("City name is invalid - please reenter");
-//                continue; 
-//            }
+            
 
             double latitude = 0.0;
             double longitude = 0.0;
@@ -264,58 +275,58 @@ public class User {
      * zip checker 
      * @return
      */
-    public ArrayList<String> validZip() {
-        ArrayList<String> validZip = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("valid_zip.txt"));
-            String zip;
-            try {
-                zip = reader.readLine();
-                while (zip != null || zip.equals("")) {
-
-                    validZip.add(zip);
-                    zip = reader.readLine();
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return validZip;
-    }
+//    public ArrayList<String> validZip() {
+//        ArrayList<String> validZip = new ArrayList<>();
+//        try {
+//            BufferedReader reader = new BufferedReader(new FileReader("valid_zip.txt"));
+//            String zip;
+//            try {
+//                zip = reader.readLine();
+//                while (zip != null || zip.equals("")) {
+//
+//                    validZip.add(zip);
+//                    zip = reader.readLine();
+//                }
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        return validZip;
+//    }
 
     /**
      * city checker
      * @return
      */
-    public ArrayList<String> validCities() {
-        ArrayList<String> validCity = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("city.txt"));
-            String city;
-            try {
-                city = reader.readLine();
-                while (city != null) {
-                    city = city.replaceAll("\\s+", "");
-                    validCity.add(city.trim());
-                    city = reader.readLine();
-
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return validCity;
-    }
+//    public ArrayList<String> validCities() {
+//        ArrayList<String> validCity = new ArrayList<>();
+//        try {
+//            BufferedReader reader = new BufferedReader(new FileReader("city.txt"));
+//            String city;
+//            try {
+//                city = reader.readLine();
+//                while (city != null) {
+//                    city = city.replaceAll("\\s+", "");
+//                    validCity.add(city.trim());
+//                    city = reader.readLine();
+//
+//                }
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        return validCity;
+//    }
 }
