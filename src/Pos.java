@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Pos implements IPos {
     
-    List<Restaurant> restaurantSet = new ArrayList<>(); // load restaurant to this collection
-    HashMap<String, List<String>> stateAndCity = new HashMap<>();
-    QuadTree head; // head of the QuadTree storing restaurants 
-    Point userCoordinates;
+    private List<Restaurant> restaurantSet = new ArrayList<>(); // load restaurant to this collection
+    private HashMap<String, List<String>> stateAndCity = new HashMap<>();
+    private QuadTree head; // head of the QuadTree storing restaurants 
+    private Point userCoordinates;
     
 
     public HashMap<String, List<String>>  getStateAndCity(){
