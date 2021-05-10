@@ -22,7 +22,6 @@ public class JsonParserTest {
 
         List<Restaurant> output2 = test.read("yelp_academic_dataset_business.json");
 
-//        System.out.println(output2.size());
         
         assertEquals(123148, output2.size());
 

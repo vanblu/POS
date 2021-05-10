@@ -1,4 +1,3 @@
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
@@ -166,17 +165,10 @@ public class QuadTree implements IQuadTree {
         SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
 
         for (IRestaurant r : restAtNode) {
-            //TODO: search by category is not working
-//            if (r.getLocation().distanceTo(center) <= maxDist &&
-//                    r.getCategory().contains(cuisineType)) {
-//            System.out.println(r.getName());
-//                results.add(r);
-//            }
-            if (r.getLocation().distanceTo(center) <= maxDist) {
-//            System.out.println(r.getName());
+            if (r.getLocation().distanceTo(center) <= maxDist &&
+                    r.getCategory().contains(category)) {
                 results.add(r);
             }
-
         }
         
         // recursively search through children

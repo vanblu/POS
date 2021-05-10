@@ -1,34 +1,9 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class User {
-
-    /**
-     * 
-     * @param zip
-     * @return
-     */
-//    public boolean checkZip(String zip) {
-//        if (zip.length() != 5) {
-//            return false;
-//        }
-//        if (zip.matches("[0-9]+")) {
-//            return true;
-//        }
-//        // read in valid zip
-//        ArrayList<String> validzips = validZip();
-//        if (validzips.contains(zip)) {
-//            return true;
-//        }
-//        return false;
-//    }
 
     /**
      * 
@@ -92,7 +67,7 @@ public class User {
         System.out.println("===================================");
         System.out.println("|| \t Welcome to Yalp \t ||");
         System.out.println("===================================");
-        // use a while loop
+
         System.out.println("+ a tool to find spots near you + ");
         System.out.println("");
         boolean running = true;
@@ -150,9 +125,7 @@ public class User {
                     getCity = true;
                 }
 
-            }
-
-//            
+            }      
             
 
             double latitude = 0.0;
@@ -172,11 +145,6 @@ public class User {
                 } catch (Exception e) {
                     System.out.println("Incorrect format entered try again");
                 }
-
-//                    if (!checkLatAndLong(latitude, longitude) ) {
-//                        System.out.println("Invalid latitude/ longitude - please reenter");
-//                        latAndLong = true; 
-//                    }
             }
 
             // set coordinates
@@ -264,41 +232,14 @@ public class User {
             System.out.println("Do you want to do another search? (Y/N)");
             String next = scanner.next();
 
-            if (next.toLowerCase() == "n") {
+            if (next.toLowerCase().equals("n")) {
                 running = false;
+                scanner.close();
+                System.out.println("Thank you for using our system! Enjoy your visit :) ");
             }
         }
 
     }
-
-    /**
-     * zip checker 
-     * @return
-     */
-//    public ArrayList<String> validZip() {
-//        ArrayList<String> validZip = new ArrayList<>();
-//        try {
-//            BufferedReader reader = new BufferedReader(new FileReader("valid_zip.txt"));
-//            String zip;
-//            try {
-//                zip = reader.readLine();
-//                while (zip != null || zip.equals("")) {
-//
-//                    validZip.add(zip);
-//                    zip = reader.readLine();
-//                }
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        return validZip;
-//    }
 
     /**
      * city checker
