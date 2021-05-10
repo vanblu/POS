@@ -12,37 +12,15 @@ public class User {
      */
     public boolean checkCity(String city, Pos pos) {
         HashMap<String, List<String>> cities = pos.getStateAndCity(); 
-        for(Map.Entry<String, List<String>> entry: cities.entrySet()) {
-            for(String i : entry.getValue()) {
-                if(city.equals(i)) {
+        for (Map.Entry<String, List<String>> entry: cities.entrySet()) {
+            for (String i : entry.getValue()) {
+                if (city.equals(i)) {
                     return true; 
                 }
             }
         }
-//        ArrayList<String> validCities = validCities();
-//        for (int i = 0; i < validCities.get(0).length(); i++) {
-//            System.out.println(validCities.get(0).charAt(i));
-//        }
-//        if (validCities.contains(city)) {
-//            return true;
-//        }
-        return false;
-    }
 
-    /**
-     * 
-     * @param latitude
-     * @param longtitude
-     * @return
-     */
-    public boolean checkLatAndLong(double latitude, double longtitude) {
-        if (latitude < -90 || latitude > 90) {
-            return false;
-        }
-        if (longtitude < -180 || longtitude > 180) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     /**
@@ -121,7 +99,7 @@ public class User {
                 } else if (cityNum == 5) {
                     city = "Austin";
                 } else {
-                    System.out.println("Invalid number entered!Try again");
+                    System.out.println("Invalid number entered! Try again");
                     getCity = true;
                 }
 
@@ -163,7 +141,7 @@ public class User {
             boolean rating = true;
             double lowRating = 0;
             while (rating) {
-                System.out.println("Please enter the lowest rating 1-5:");
+                System.out.println("Please enter the lowest rating 1-5: ");
 
                 lowRating = scanner.nextDouble();
                 rating = false;
@@ -190,7 +168,8 @@ public class User {
                 }
             }
 
-            List<IRestaurant> list = pos.searchForRestaurants(maxDist, lowRating, highRating, category);
+            List<IRestaurant> list = 
+                    pos.searchForRestaurants(maxDist, lowRating, highRating, category);
 
             // ask user how many results they want
             System.out.println("How do you want to sort the output list? (Type star, or distance, or name)");
@@ -240,34 +219,4 @@ public class User {
         }
 
     }
-
-    /**
-     * city checker
-     * @return
-     */
-//    public ArrayList<String> validCities() {
-//        ArrayList<String> validCity = new ArrayList<>();
-//        try {
-//            BufferedReader reader = new BufferedReader(new FileReader("city.txt"));
-//            String city;
-//            try {
-//                city = reader.readLine();
-//                while (city != null) {
-//                    city = city.replaceAll("\\s+", "");
-//                    validCity.add(city.trim());
-//                    city = reader.readLine();
-//
-//                }
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        return validCity;
-//    }
 }

@@ -61,7 +61,7 @@ public class Restaurant implements IRestaurant {
         this.stars = stars;
     }
 
-    public List <String> getCategory() {
+    public List<String> getCategory() {
         return category;
     }
 

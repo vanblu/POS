@@ -39,8 +39,8 @@ public class PosTest {
     @Test
     public void testSearchForRestaruants() {
         pos.loadRestaurantInfo("yelp_academic_dataset_business_TEST.json");
-        pos.setUserCoordinates(new Point(-105.2833481,40.0175444));
-        pos.storeRestaurantsInTree("Boulder");
+        pos.setUserCoordinates(new Point(40.01765119582373, -105.28326227216297));
+        pos.storeRestaurantsInTree("boulder");
         
         List<IRestaurant> restaurants = pos.searchForRestaurants(100, 0, 5, "gastropubs");
         assertEquals(restaurants.get(0).getName(), "Oskar Blues Taproom");

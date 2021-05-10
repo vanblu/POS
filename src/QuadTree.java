@@ -160,9 +160,9 @@ public class QuadTree implements IQuadTree {
             return;
         }
         IRestaurant lowerBound = new Restaurant(lowRating);
-        IRestaurant upperBound = new Restaurant(highRating);
+        IRestaurant upperBound = new Restaurant(highRating + 0.3);
         // use treeset to efficiently find restaurants within the specified ratings range 
-        SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, upperBound);
+        SortedSet<IRestaurant> restAtNode = this.getRestaurantsAtNode().subSet(lowerBound, true, upperBound, true);
 
         for (IRestaurant r : restAtNode) {
             if (r.getLocation().distanceTo(center) <= maxDist &&

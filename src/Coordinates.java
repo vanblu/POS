@@ -8,14 +8,4 @@ public class Coordinates {
         double y = RADIUS * Math.toRadians(latitude);
         return new Point(x, y);
     }
-    
-    public static void main(String[] args) {
-        
-        System.out.println(latLongToPoint(40.017675845638266, -105.28327300072598));
-        System.out.println(latLongToPoint(40.0157246662949, -105.277114431823));
-        
-        System.out.println(latLongToPoint(40.017675845638266, -105.28327300072598).
-                distanceTo(latLongToPoint(40.0157246662949, -105.277114431823)));
-       
-    }
 }

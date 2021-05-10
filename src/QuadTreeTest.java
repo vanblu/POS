@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
@@ -88,6 +89,9 @@ public class QuadTreeTest {
     public void testRangeSearchInitial() {
         rest.setName("Oskar Blues");
         rest.setStars(3.0);
+        List<String> categories = new LinkedList<String>();
+        categories.add("bar");
+        rest.setCategory(categories);
       
         List<IRestaurant> searchResult = q.rangeSearch(1000, 2, 4, "bar");
         assertTrue(searchResult.contains(rest));
@@ -95,11 +99,15 @@ public class QuadTreeTest {
     
     @Test
     public void testRangeSearch() {
+        List<String> categories = new LinkedList<String>();
+        categories.add("restaurant");
+        
         // Boulder Dushanbe Teahouse
         IRestaurant rest1 = new Restaurant();
         rest1.setLatitude(40.01567942652367);
         rest1.setLongtitude(-105.27733382047006);
         rest1.setStars(3.0);
+        rest1.setCategory(categories);
   
         q.insert(rest1);
         
@@ -109,6 +117,7 @@ public class QuadTreeTest {
         rest2.setLongtitude(-105.2770302292496);
   
         rest2.setStars(5.0);
+        rest2.setCategory(categories);
         q.insert(rest2);
         
         // village coffee shop: >1km away 
@@ -117,13 +126,14 @@ public class QuadTreeTest {
         rest3.setLongtitude(-105.26344802242745);
      
         rest3.setStars(3.5);
+        rest3.setCategory(categories);
         q.insert(rest3);
         
         // Rincon Argentino: >1km away 
         IRestaurant rest4 = new Restaurant();
         rest4.setLatitude(40.01505702182746);
         rest4.setLongtitude(-105.26274632294049);
- 
+        rest4.setCategory(categories);
         rest4.setStars(2.0);
         q.insert(rest4);
         
@@ -131,7 +141,7 @@ public class QuadTreeTest {
         IRestaurant rest5 = new Restaurant();
         rest5.setLatitude(40.01634955889032);
         rest5.setLongtitude(-105.28441868849664);
-   
+        rest5.setCategory(categories);
         rest5.setStars(3.5);
         q.insert(rest5);
         
@@ -145,6 +155,9 @@ public class QuadTreeTest {
         Double latitude = 40.01567942652367;
         Double longitude = -105.27733382047006;
         
+        List<String> categories = new LinkedList<String>();
+        categories.add("restaurant");
+        
         // insert 100 similar restaurants at almost the same location 
         for (int i = 0; i < 100; i++) {
             IRestaurant rest1 = new Restaurant();
@@ -153,7 +166,7 @@ public class QuadTreeTest {
             latitude += 0.0000000001;
             longitude += 0.000000001;
             rest1.setStars(3.0);
- 
+            rest1.setCategory(categories);
             q.insert(rest1);
         }
         
