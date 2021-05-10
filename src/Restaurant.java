@@ -88,7 +88,7 @@ public class Restaurant implements IRestaurant {
             return -1; // randomly order if no stars given 
         }
         if (Math.abs(this.getStars() - that.getStars()) < 0.05) {
-            return -1; // randomly order if same stars
+            return 1; // randomly order if same stars
         }
 
         return (int) (this.getStars() * 100 - that.getStars() * 100);

@@ -132,7 +132,7 @@ public class User {
             // compose tree
             pos.storeRestaurantsInTree(city);
 
-            System.out.println("Please enter the category you want to search for: ");
+            System.out.println("Please enter the category you want to search for (or 'any' if no specific category): ");
 
             String category = scanner.next();
 

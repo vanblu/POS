@@ -166,7 +166,7 @@ public class QuadTree implements IQuadTree {
 
         for (IRestaurant r : restAtNode) {
             if (r.getLocation().distanceTo(center) <= maxDist &&
-                    r.getCategory().contains(category)) {
+                    (r.getCategory().contains(category) || category.equals("any"))) {
                 results.add(r);
             }
         }
