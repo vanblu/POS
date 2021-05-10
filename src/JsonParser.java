@@ -284,7 +284,7 @@ public class JsonParser {
                 String city = getCityValues(jo);
                 String state = getStateValues(jo);
                 if (city != null && state != null) {
-                    state = state.toUpperCase();
+                    state = state.toLowerCase();
                     city = city.toLowerCase();
                     city.trim();
                     if (l.containsKey(state)) {
